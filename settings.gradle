@@ -1,2 +1,4 @@
+include ':DiscoDuckBots'
+include ':DiscoDuckbots'
 include ':FtcRobotController'
 include ':TeamCode'
