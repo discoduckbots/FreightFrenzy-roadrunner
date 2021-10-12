@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -50,6 +51,7 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
+
 @TeleOp(group = "drive")
 public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
   /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
@@ -64,6 +66,7 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
    *  FreightFrenzy_DM.tflite  0: Duck,  1: Marker
    */
     private static final String TFOD_MODEL_ASSET = "FreightFrenzy_BCDM.tflite";
+    private static final String LABEL_DUCK = "Duck";
     private static final String[] LABELS = {
       "Ball",
       "Cube",
@@ -126,30 +129,63 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
         telemetry.update();
         //log.d("FTC", "Press play ");
         waitForStart();
-
+        int level = -1;
         if (opModeIsActive()) {
             while (opModeIsActive()) {
-                if (tfod != null) {
-                    // getUpdatedRecognitions() will return null if no new information is available since
-                    // the last time that call was made.
-                    List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                    if (updatedRecognitions != null) {
-                      telemetry.addData("# Object Detected", updatedRecognitions.size());
-                      // step through the list of recognitions and display boundary info.
-                      int i = 0;
-                      for (Recognition recognition : updatedRecognitions) {
-                        telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                        telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                                recognition.getLeft(), recognition.getTop());
-                        telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                recognition.getRight(), recognition.getBottom());
-                        i++;
-                      }
-                      telemetry.update();
+                while (level == -1) {
+                    String obj1 = findObject();
+
+                    if(obj1 != null && obj1.equals(LABEL_DUCK)) {
+                        telemetry.addData("Go to ", "level1");
+                        telemetry.update();
+                        level = 1;
+                    } else {
+                        while (gamepad1.a == false) {}
+
+                        telemetry.addData("sensing object 2","");
+                        telemetry.update();
+
+                        String obj2 = findObject();
+                        if(obj2 != null && obj2.equals(LABEL_DUCK)) {
+                            telemetry.addData("Go to ", "level2");
+                            level = 2;
+                        } else {
+                            telemetry.addData("Go to", "level3");
+                            level = 3;
+                        }
+                        telemetry.update();
+
                     }
                 }
             }
         }
+    }
+
+    private String findObject() {
+        if (tfod != null) {
+        // getUpdatedRecognitions() will return null if no new information is available since
+        // the last time that call was made.
+        for(int count = 0; count < 10; count ++) {
+            List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+            if (updatedRecognitions != null) {
+                telemetry.addData("# Object Detected", updatedRecognitions.size());
+                // step through the list of recognitions and display boundary info.
+                int i = 0;
+                for (Recognition recognition : updatedRecognitions) {
+                    telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                    telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                            recognition.getLeft(), recognition.getTop());
+                    telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                            recognition.getRight(), recognition.getBottom());
+                    i++;
+                    return recognition.getLabel();
+                }
+                telemetry.update();
+            }
+        }
+    }
+
+      return null;
     }
 
     /**
