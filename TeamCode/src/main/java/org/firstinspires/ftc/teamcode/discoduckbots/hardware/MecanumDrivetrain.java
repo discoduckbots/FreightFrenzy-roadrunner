@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.discoduckbots.hardware;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
@@ -21,10 +22,10 @@ public class MecanumDrivetrain implements DrivetrainInterface {
     public static final int DIRECTION_STRAFE_RIGHT = 2;
     public static final int DIRECTION_STRAFE_LEFT = 3;
 
-    private DcMotor mFrontLeft;
-    private DcMotor mFrontRight;
-    private DcMotor mBackLeft;
-    private DcMotor mBackRight;
+    private DcMotorEx mFrontLeft;
+    private DcMotorEx mFrontRight;
+    private DcMotorEx mBackLeft;
+    private DcMotorEx mBackRight;
     private Telemetry mTelemetry;
     private LinearOpMode opMode;
     private IMU imu;
@@ -45,8 +46,8 @@ public class MecanumDrivetrain implements DrivetrainInterface {
      */
     public MecanumDrivetrain(Telemetry telemetry,
                              LinearOpMode opMode,
-                             DcMotor frontLeft, DcMotor frontRight,
-                             DcMotor backLeft, DcMotor backRight ) {
+                             DcMotorEx frontLeft, DcMotorEx frontRight,
+                             DcMotorEx backLeft, DcMotorEx backRight ) {
         this(telemetry, opMode, null, null, frontLeft, frontRight, backLeft, backRight);
     }
 
@@ -65,8 +66,8 @@ public class MecanumDrivetrain implements DrivetrainInterface {
                              LinearOpMode opMode,
                              IMU imu,
                              ColorSensor colorSensor,
-                             DcMotor frontLeft, DcMotor frontRight,
-                             DcMotor backLeft, DcMotor backRight ) {
+                             DcMotorEx frontLeft, DcMotorEx frontRight,
+                             DcMotorEx backLeft, DcMotorEx backRight ) {
         mTelemetry = telemetry;
         mFrontLeft = frontLeft;
         mFrontRight = frontRight;
@@ -382,7 +383,7 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         int firstPosition3 = mBackRight.getCurrentPosition();
         int firstPosition4 = mFrontRight.getCurrentPosition();
 
-        while (opMode.opModeIsActive() && (target = mBackLeft.getTargetPosition()) > (current = mBackLeft.getCurrentPosition()) + tolerance){
+        while (opMode.opModeIsActive() && (target = mFrontLeft.getTargetPosition()) > (current = mFrontLeft.getCurrentPosition()) + tolerance){
 
             double gyroAdjustment = imu.computeHeadingAdjustment(targetHeading);
 
@@ -630,9 +631,9 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         int blPos = mBackLeft.getCurrentPosition();
         int flPos = mFrontLeft.getCurrentPosition();
         mFrontLeft.setPower(power);
-        mBackRight.setPower(power * .212 );
-        mBackLeft.setPower(power * .238 );
-        mFrontRight.setPower(power * .887);
+        mBackRight.setPower(power );
+        mBackLeft.setPower(power );
+        mFrontRight.setPower(power );
 
         while (mFrontLeft.isBusy()) {
             // wait for the wheels to stop
@@ -660,11 +661,37 @@ public class MecanumDrivetrain implements DrivetrainInterface {
     }
 
     public void forwardByTime(LinearOpMode opMode, double speed, double time) {
+        /*int brPos = mBackRight.getCurrentPosition();
+        int frPos = mFrontRight.getCurrentPosition();
+        int blPos = mBackLeft.getCurrentPosition();
+        int flPos = mFrontLeft.getCurrentPosition();
+        mBackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        mBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        mFrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        mFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        mBackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        mBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        mFrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        mFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);*/
+        mBackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mFrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         mBackLeft.setPower(speed);
         mBackRight.setPower(speed);
         mFrontRight.setPower(speed);
         mFrontLeft.setPower(speed);
         opMode.sleep((long)(1000 * time));
+       /* opMode.telemetry.addData("br Pos change: " + mBackRight.getDirection() + " " ,
+                mBackRight.getCurrentPosition() - brPos);
+        opMode.telemetry.addData("fr Pos change: " + mFrontRight.getDirection() + " ",
+                mFrontRight.getCurrentPosition() - frPos);
+        opMode.telemetry.addData("bl Pos change: " + mBackLeft.getDirection() + " ",
+                mBackLeft.getCurrentPosition() - blPos);
+        opMode.telemetry.addData("fl Pos change: " + mFrontLeft.getDirection() + " ",
+                mFrontLeft.getCurrentPosition() - flPos);
+        opMode.telemetry.update();*/
+
 
     }
 

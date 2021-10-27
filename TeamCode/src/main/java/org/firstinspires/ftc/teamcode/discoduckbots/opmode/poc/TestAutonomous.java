@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.discoduckbots.opmode.poc;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -20,10 +21,10 @@ public class TestAutonomous extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // initialize hardware
-        DcMotor frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-        DcMotor frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-        DcMotor backRight = hardwareMap.get(DcMotor.class, "backRight");
-        DcMotor backLeft = hardwareMap.get(DcMotor.class, "backLeft");
+        DcMotorEx frontLeft = hardwareMap.get(DcMotorEx.class, "frontLeft");
+        DcMotorEx frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
+        DcMotorEx backRight = hardwareMap.get(DcMotorEx.class, "backRight");
+        DcMotorEx backLeft = hardwareMap.get(DcMotorEx.class, "backLeft");
         mMecanumDrivetrain = new MecanumDrivetrain(telemetry, this, frontLeft, frontRight, backLeft, backRight);
         DcMotor wobbleMoverMotor = hardwareMap.get(DcMotor.class, "wobbleMover");
         Servo wobbleGrabber = hardwareMap.get(Servo.class, "wobbleGrabber");

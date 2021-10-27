@@ -110,9 +110,9 @@ public class TestTeleOp extends LinearOpMode {
                 telemetry.addData("BL Encoder: " , hardwareStore.backLeft.getCurrentPosition());
                 telemetry.update();
                 */
-
-                mecanumDrivetrain.driveByDistance(14, MecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED);
-                //mecanumDrivetrain.driveByGyro(14, MecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
+                //mecanumDrivetrain.backwardByTime(this,AUTONOMOUS_SPEED,0.5);
+                //mecanumDrivetrain.driveByDistance(14, MecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED);
+                mecanumDrivetrain.driveByGyro(5, MecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             }else {
                 //hardwareStore.backLeft.setPower(0);
             }
@@ -131,9 +131,9 @@ public class TestTeleOp extends LinearOpMode {
 
                  */
 
-                //mecanumDrivetrain.driveByGyro(14, MecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
-                mecanumDrivetrain.driveByDistance(14, MecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED);
-                //mecanumDrivetrain.forwardByTime(this,AUTONOMOUS_SPEED,1);
+                mecanumDrivetrain.driveByGyro(5, MecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+               //mecanumDrivetrain.driveByDistance(14, MecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED);
+               // mecanumDrivetrain.forwardByTime(this,AUTONOMOUS_SPEED,0.5);
 
             }else {
                 //hardwareStore.backRight.setPower(0);
@@ -151,8 +151,9 @@ public class TestTeleOp extends LinearOpMode {
                 telemetry.update();
 
                  */
-                //mecanumDrivetrain.driveByGyro(14, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
-                mecanumDrivetrain.driveByDistance(14, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED);
+                //mecanumDrivetrain.strafeRightByTime(this, AUTONOMOUS_SPEED, 0.5);
+                mecanumDrivetrain.driveByGyro(5, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
+                //mecanumDrivetrain.driveByDistance(14, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED);
             }else {
                 //hardwareStore.frontLeft.setPower(0);
             }
@@ -171,8 +172,9 @@ public class TestTeleOp extends LinearOpMode {
                 telemetry.update();
 
                  */
-                //mecanumDrivetrain.driveByGyro(14, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
-                mecanumDrivetrain.driveByDistance(14, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED);
+                //mecanumDrivetrain.strafeLeftByTime(this, AUTONOMOUS_SPEED, 0.5);
+                mecanumDrivetrain.driveByGyro(5, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
+                //mecanumDrivetrain.driveByDistance(14, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED);
             }else {
                 //hardwareStore.frontRight.setPower(0);
             }

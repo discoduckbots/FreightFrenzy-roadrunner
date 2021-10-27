@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.HardwareStore;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.MecanumDrivetrain;
 
@@ -91,7 +92,8 @@ public class TestMotorDirection extends LinearOpMode {
         hardwareStore.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         hardwareStore.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         while (opModeIsActive()) {
-
+            double[] angles = hardwareStore.getImu().printAngles();
+            telemetry.addData("IMU 1:" + angles[0]+ " 2:" + angles[1] + " 3:" + angles[2], "");
             telemetry.addData("br Pos change: " + hardwareStore.backRight.getDirection() + " " ,
                     hardwareStore.backRight.getCurrentPosition() - brPos);
             telemetry.addData("fr Pos change: " + hardwareStore.frontRight.getDirection() + " ",

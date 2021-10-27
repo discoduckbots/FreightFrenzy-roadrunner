@@ -20,18 +20,18 @@ public class HardwareStore {
     private ColorSensor colorSensor = null;
     private TouchSensor touchSensor = null;
 
-    public DcMotor frontLeft ;
-    public DcMotor frontRight ;
-    public DcMotor backRight ;
-    public DcMotor backLeft ;
+    public DcMotorEx frontLeft ;
+    public DcMotorEx frontRight ;
+    public DcMotorEx backRight ;
+    public DcMotorEx backLeft ;
     public DcMotor carouselSpinner ;
     public Servo intakePusher;
 
     public HardwareStore(HardwareMap hardwareMap, Telemetry telemetry, LinearOpMode opMode) {
-         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-         backRight = hardwareMap.get(DcMotor.class, "backRight");
-         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
+         frontLeft = hardwareMap.get(DcMotorEx.class, "frontLeft");
+         frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
+         backRight = hardwareMap.get(DcMotorEx.class, "backRight");
+         backLeft = hardwareMap.get(DcMotorEx.class, "backLeft");
         // carouselSpinner = hardwareMap.get(DcMotor.class, "carouselMotor");
         //colorSensor = hardwareMap.get(ColorSensor.class, "sensor_color");
         //touchSensor = hardwareMap.get(TouchSensor.class, "sensor_touch");
@@ -63,10 +63,10 @@ public class HardwareStore {
                                  LinearOpMode opMode,
                                  IMU imu,
                                  ColorSensor colorSensor,
-                                 DcMotor frontLeft,
-                                 DcMotor frontRight,
-                                 DcMotor backLeft,
-                                 DcMotor backRight){
+                                                 DcMotorEx frontLeft,
+                                                 DcMotorEx frontRight,
+                                                 DcMotorEx backLeft,
+                                                 DcMotorEx backRight){
         return new MecanumDrivetrain(telemetry, opMode, imu, colorSensor, frontLeft, frontRight, backLeft, backRight);
     }
 
