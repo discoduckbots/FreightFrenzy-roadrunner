@@ -55,9 +55,9 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "ffRed", group = "drive")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "ffRed1", group = "drive")
 
-public class FreightFrenzyAutonomousRed extends LinearOpMode {
+public class FreightFrenzyAutonomousRed1 extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mecanumDrivetrain = null;
 
@@ -65,7 +65,7 @@ public class FreightFrenzyAutonomousRed extends LinearOpMode {
     TensorFlow tensorFlow = null;
     RingStackDetector ringStackDetector = null;
 
-    private static final double AUTONOMOUS_SPEED = 0.4;
+    private static final double AUTONOMOUS_SPEED = 0.3;
     private static final double STRAFE_SPEED = 0.5;
     private static final double ROTATION_SPEED = 0.4;
     private static final int WOBBLE_GRABBER_REVOLUTIONS = 6250;
@@ -147,7 +147,9 @@ public class FreightFrenzyAutonomousRed extends LinearOpMode {
         waitForStart();
 
         if (opModeIsActive()) {
-            mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+           mecanumDrivetrain.driveByGyro(16, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+
+            /* mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
             //tensorflow
             sleep(300);
             mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
@@ -160,10 +162,10 @@ public class FreightFrenzyAutonomousRed extends LinearOpMode {
             mecanumDrivetrain.driveByGyro(5, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
             //drop cube
             sleep(200);
-            /*This distance depends on if we are going over the barrier or through the gap*/
+            //This distance depends on if we are going over the barrier or through the gap
             mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             mecanumDrivetrain.driveByGyro(21, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
-
+*/
             telemetry.addData("end","");
             telemetry.update();
         }

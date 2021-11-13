@@ -152,7 +152,9 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         double throttledX = speedX * throttle;
         double throttledY = speedY * throttle;
         double throttledRotation = rotation * throttle;
-
+        mTelemetry.addData("x:","speedX");
+        mTelemetry.addData("y:","speedY");
+        mTelemetry.update();
         drive(throttledX, throttledY, throttledRotation);
     }
     public void turnLeft(LinearOpMode opMode, int degree){

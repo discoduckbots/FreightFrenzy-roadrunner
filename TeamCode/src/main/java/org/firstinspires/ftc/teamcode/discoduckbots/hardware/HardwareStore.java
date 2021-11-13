@@ -14,6 +14,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class HardwareStore {
     private MecanumDrivetrain mecanumDrivetrain;
     private Intake intake;
+    private CarouselSpinner carouselSpinner;
+    private CargoGrabber cargoGrabber;
     private Shooter shooter;
     private WobbleMover wobbleMover;
     private IMU imu;
@@ -24,7 +26,9 @@ public class HardwareStore {
     public DcMotorEx frontRight ;
     public DcMotorEx backRight ;
     public DcMotorEx backLeft ;
-    public DcMotor carouselSpinner ;
+    public DcMotorEx carouselMotor;
+    public DcMotor cargoMotor;
+    public Servo cargoServo;
     public Servo intakePusher;
 
     public HardwareStore(HardwareMap hardwareMap, Telemetry telemetry, LinearOpMode opMode) {
@@ -32,12 +36,14 @@ public class HardwareStore {
          frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
          backRight = hardwareMap.get(DcMotorEx.class, "backRight");
          backLeft = hardwareMap.get(DcMotorEx.class, "backLeft");
-        // carouselSpinner = hardwareMap.get(DcMotor.class, "carouselMotor");
+         carouselMotor = hardwareMap.get(DcMotorEx.class, "carouselMotor");
+         cargoMotor = hardwareMap.get(DcMotor.class, "cargoMotor");
+         cargoServo = hardwareMap.get(Servo.class, "cargoServo");
         //colorSensor = hardwareMap.get(ColorSensor.class, "sensor_color");
         //touchSensor = hardwareMap.get(TouchSensor.class, "sensor_touch");
         
-
-
+        carouselSpinner = new CarouselSpinner(carouselMotor, opMode);
+        cargoGrabber = new CargoGrabber(cargoMotor, cargoServo);
        // DcMotorEx intakeMotor = hardwareMap.get(DcMotorEx.class, "intake");
         //intakePusher = hardwareMap.get(Servo.class, "intakePusher");
        /* intake = new Intake(intakeMotor, intakePusher);
@@ -96,7 +102,10 @@ public class HardwareStore {
 
     public TouchSensor getTouchSensor() { return touchSensor; }
 
-    public DcMotor getCarouselMotor() {
+    public CarouselSpinner getCarouselSpinner() {
         return carouselSpinner;
     }
+
+    public CargoGrabber getCargoGrabber() { return cargoGrabber; }
+
 }

@@ -24,7 +24,7 @@ public class CarouselSpinner {
 
         carouselMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        carouselMotor.setDirection(DcMotor.Direction.FORWARD);
+        carouselMotor.setDirection(DcMotor.Direction.REVERSE);
     }
 
     private double getVelocity(double power) {
@@ -33,13 +33,32 @@ public class CarouselSpinner {
 
     public void getOneDuckInAutonomous() {
         //carouselMotor.setVelocity(getVelocity(POWER));
+        carouselMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         carouselMotor.setPower(POWER);
-        opMode.sleep(1000);
+        opMode.sleep(1500);
         stop();
+    }
+    public void start() {
+        carouselMotor.setPower(.6);
+    }
+    public void setForward() {
+        carouselMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+    }
+
+    public void setBackward() {
+        carouselMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
 
     public void stop(){
         carouselMotor.setPower(0);
     }
+
+    public void getOneDuckInAutonomous2() {
+        carouselMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        carouselMotor.setPower(POWER);
+        opMode.sleep(1500);
+        stop();
+    }
+
 }

@@ -30,8 +30,12 @@
 package org.firstinspires.ftc.teamcode.discoduckbots.opmode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
+import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CarouselSpinner;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.HardwareStore;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.Intake;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.MecanumDrivetrain;
@@ -60,16 +64,22 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mecanumDrivetrain = null;
     private Intake intake = null;
+    private CarouselSpinner carouselSpinner = null;
+    private CargoGrabber cargoGrabber = null;
     private Shooter shooter = null;
     private WobbleMover wobbleMover = null;
+
 
     @Override
     public void runOpMode() {
         HardwareStore hardwareStore = new HardwareStore(hardwareMap, telemetry, this);
         mecanumDrivetrain = hardwareStore.getMecanumDrivetrain();
         intake = hardwareStore.getIntake();
+        carouselSpinner = hardwareStore.getCarouselSpinner();
+        cargoGrabber = hardwareStore.getCargoGrabber();
         shooter = hardwareStore.getShooter();
         wobbleMover = hardwareStore.getWobbleMover();
+
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -81,14 +91,33 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
             /* Gamepad 1 */
             mecanumDrivetrain.drive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x, THROTTLE);
 
-      /*      if (gamepad1.a) {
-                intake.intake(intakeSpeed);
+            if (gamepad1.a) {
+                carouselSpinner.setForward();
+                carouselSpinner.start();
+                //intake.intake(intakeSpeed);
             } else if (gamepad1.b) {
-                intake.outtake();
+                carouselSpinner.setBackward();
+                carouselSpinner.start();
+
             } else {
-                intake.stop();
+                carouselSpinner.stop();
+                // intake.stop();
+                }
+
+            if (gamepad2.left_bumper) {
+             cargoGrabber.grab();
+            } else if (gamepad2.right_bumper) {
+                cargoGrabber.release();
             }
 
+            if (gamepad2.dpad_up) {
+                cargoGrabber.lower(.6);
+            } else if (gamepad2.dpad_down) {
+                cargoGrabber.lift(.6);
+            } else {
+                cargoGrabber.stop();
+            }
+/*
             if (gamepad1.y) {
                 intake.pushRing();
             } else if (gamepad1.x) {

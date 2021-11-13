@@ -51,9 +51,9 @@ import org.firstinspires.ftc.teamcode.discoduckbots.sensors.TensorFlow;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFBlue", group = "drive")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFBlue1", group = "drive")
 
-public class FreightFrenzyAutonomousBlue extends LinearOpMode {
+public class FreightFrenzyAutonomousBlue1 extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mecanumDrivetrain = null;
 
@@ -61,7 +61,7 @@ public class FreightFrenzyAutonomousBlue extends LinearOpMode {
     TensorFlow tensorFlow = null;
     RingStackDetector ringStackDetector = null;
 
-    private static final double AUTONOMOUS_SPEED = 0.4;
+    private static final double AUTONOMOUS_SPEED = 0.3;
     private static final double STRAFE_SPEED = 0.5;
     private static final double ROTATION_SPEED = 0.4;
     private static final int WOBBLE_GRABBER_REVOLUTIONS = 6250;
@@ -146,7 +146,9 @@ public class FreightFrenzyAutonomousBlue extends LinearOpMode {
 
             //tensorflow
             sleep(300);
-            mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
+            mecanumDrivetrain.driveByGyro(16, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
+
+            /*mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
             mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             //drop cube
             mecanumDrivetrain.driveByGyro(18, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
@@ -154,7 +156,7 @@ public class FreightFrenzyAutonomousBlue extends LinearOpMode {
            
             sleep(200);
             /*This distance depends on if we are going over the barrier or through the gap*/
-            mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+            /*mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
             sleep(200);
             mecanumDrivetrain.gyroTurn(90,0.3,this);
             sleep (200);
@@ -165,12 +167,14 @@ public class FreightFrenzyAutonomousBlue extends LinearOpMode {
             telemetry.addData("end","");
             telemetry.update();
         }
+        */
+
     }
 
     /**
      * Initialize the Vuforia localization engine.
-     */
-    private void initVuforia() {
+
+    private void initVuforia(); { */
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          */
