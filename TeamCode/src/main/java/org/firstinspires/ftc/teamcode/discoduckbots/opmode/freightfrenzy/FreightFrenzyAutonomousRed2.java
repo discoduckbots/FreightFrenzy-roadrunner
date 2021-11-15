@@ -62,8 +62,8 @@ public class FreightFrenzyAutonomousRed2 extends LinearOpMode {
     TensorFlow tensorFlow = null;
     RingStackDetector ringStackDetector = null;
 
-    private static final double AUTONOMOUS_SPEED = 0.4;
-    private static final double STRAFE_SPEED = 0.5;
+    private static final double AUTONOMOUS_SPEED = 0.3;
+    private static final double STRAFE_SPEED = 0.15;
     private static final double ROTATION_SPEED = 0.4;
     private static final int WOBBLE_GRABBER_REVOLUTIONS = 6250;
   /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
@@ -144,11 +144,11 @@ public class FreightFrenzyAutonomousRed2 extends LinearOpMode {
         waitForStart();
 
         if (opModeIsActive()) {
-           mecanumDrivetrain.driveByGyro(6, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
+           mecanumDrivetrain.driveByGyro(7, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
            sleep(300);
            carouselSpinner.getOneDuckInAutonomous();
            sleep(300);
-           mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
+           mecanumDrivetrain.driveByGyro(6, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
             /* mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
             //tensorflow
             sleep(300);
