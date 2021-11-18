@@ -23,9 +23,10 @@ public class CarouselSpinner {
         this.opMode = opMode;
 
         carouselMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+        carouselMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         carouselMotor.setDirection(DcMotor.Direction.REVERSE);
     }
+
 
     private double getVelocity(double power) {
         return MAX_ROTATIONS_PER_SECOND * ENCODER_CYCLES_PER_ROTATION * power;

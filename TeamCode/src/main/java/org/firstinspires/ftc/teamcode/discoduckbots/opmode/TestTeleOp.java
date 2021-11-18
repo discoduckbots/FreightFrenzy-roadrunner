@@ -88,12 +88,14 @@ public class TestTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
             if (gamepad1.left_bumper) {
+                mecanumDrivetrain.gyroTurn(90, 0.3, this);
                 //hardwareStore.intakePusher.setPosition(0);
-            }
-            if (gamepad1.right_bumper) {
+            } else if (gamepad1.right_bumper) {
+                mecanumDrivetrain.turnLeftGyro(90, hardwareStore.getImu(), 90, MecanumDrivetrain.DIRECTION_FORWARD, telemetry);
                 //hardwareStore.intakePusher.setDirection(Servo.Direction.FORWARD);
                 //hardwareStore.intakePusher.setPosition(180);
-            }
+            } else mecanumDrivetrain.stop();
+
             if (!gamepad1.a && !gamepad1.b && !gamepad1.y && !gamepad1.x ) {
                 mecanumDrivetrain.stop();
                 continue;

@@ -391,13 +391,13 @@ public class MecanumDrivetrain implements DrivetrainInterface {
 
             double adjustedPower = basePower;
             int distanceToTarget = target - current;
-            /*
-            if (distanceToTarget < 20){
+
+            if (distanceToTarget < 10){
+                adjustedPower = basePower * .15;
+            }else if (distanceToTarget < 20){
                 adjustedPower = basePower * .25;
             }
-            else if (distanceToTarget < 10){
-                adjustedPower = basePower * .15;
-            }*/
+
             if (adjustedPower < 0.2) {
                 adjustedPower = 0.2;
             }
