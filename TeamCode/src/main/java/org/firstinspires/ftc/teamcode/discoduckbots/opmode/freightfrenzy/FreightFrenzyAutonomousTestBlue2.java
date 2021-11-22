@@ -53,19 +53,19 @@ import org.firstinspires.ftc.teamcode.discoduckbots.sensors.TensorFlow;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFBlue2", group = "drive")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFTestBlue2", group = "drive")
 
-public class FreightFrenzyAutonomousBlue2 extends LinearOpMode {
+public class FreightFrenzyAutonomousTestBlue2 extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mecanumDrivetrain = null;
     private CargoGrabber cargoGrabber = null;
-
+    private CarouselSpinner carouselSpinner = null;
 
     TensorFlow tensorFlow = null;
     RingStackDetector ringStackDetector = null;
 
     private static final double AUTONOMOUS_SPEED = 0.3;
-    private static final double STRAFE_SPEED = 0.3;
+    private static final double STRAFE_SPEED = 0.5;
     private static final double ROTATION_SPEED = 0.4;
     private static final int WOBBLE_GRABBER_REVOLUTIONS = 6250;
   /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
@@ -119,8 +119,7 @@ public class FreightFrenzyAutonomousBlue2 extends LinearOpMode {
         HardwareStore hardwareStore = new HardwareStore(hardwareMap, telemetry, this);
         mecanumDrivetrain = hardwareStore.getMecanumDrivetrain();
         cargoGrabber = hardwareStore.getCargoGrabber();
-
-        CarouselSpinner carouselSpinner = hardwareStore.getCarouselSpinner();
+        carouselSpinner = hardwareStore.getCarouselSpinner();
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         //initVuforia();
@@ -151,21 +150,31 @@ public class FreightFrenzyAutonomousBlue2 extends LinearOpMode {
 
             //tensorflow
             sleep(300);
-            cargoGrabber.grab();
-            sleep(300);
-            mecanumDrivetrain.driveByGyro(0.5, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
-            sleep(300);
-            mecanumDrivetrain.driveByGyro(7.5, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 0);
-            sleep(1000);
-            carouselSpinner.getOneDuckInAutonomous2();
-            sleep(300);
-            mecanumDrivetrain.driveByGyro(11, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
+                    cargoGrabber.grab();
+                    sleep(300);
+                    mecanumDrivetrain.driveByGyro(7.5, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
+                    sleep(300);
+                    mecanumDrivetrain.driveByGyro(5, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
+                    sleep(300);
+                    //cargoGrabber.lower(1);
+                    //sleep(300);
+                    //cargoGrabber.release();
+                    //sleep(300);
+                    mecanumDrivetrain.driveByGyro(6.5, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,0);
+                    sleep(300);
+                    mecanumDrivetrain.gyroTurn(-90, 0.3, this );
+                    sleep(500);
+                    mecanumDrivetrain.driveByGyro(4, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 90);
+                    sleep(500);
+                    mecanumDrivetrain.driveByGyro(11,mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+                    carouselSpinner.getOneDuckInAutonomous2();
+                    mecanumDrivetrain.driveByGyro(6, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED,0);
             /*mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
             mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             //drop cube
             mecanumDrivetrain.driveByGyro(18, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
             mecanumDrivetrain.driveByGyro(5, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
-
+           
             sleep(200);
             /*This distance depends on if we are going over the barrier or through the gap*/
             /*mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
@@ -178,18 +187,18 @@ public class FreightFrenzyAutonomousBlue2 extends LinearOpMode {
             telemetry.update();
             telemetry.addData("end","");
             telemetry.update();
-
-             */
         }
-
+        */
 
     }
 
     /**
      * Initialize the Vuforia localization engine.
 
-    private void initVuforia(); {
-
+    private void initVuforia(); { */
+        /*
+         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+         */
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
@@ -200,7 +209,7 @@ public class FreightFrenzyAutonomousBlue2 extends LinearOpMode {
 
         // Loading trackables is not necessary for the TensorFlow Object Detection engine.
     }
-*/
+
     /**
      * Initialize the TensorFlow Object Detection engine.
      */

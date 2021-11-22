@@ -58,7 +58,7 @@ import org.firstinspires.ftc.teamcode.discoduckbots.hardware.WobbleMover;
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Nikolay Opmode", group="Linear Opmode")
 public class MecanumDrivetrainTeleOp extends LinearOpMode {
 
-    private static double THROTTLE = 0.5;
+    private static double THROTTLE = 0.35;
     private static double intakeSpeed = .81;
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();

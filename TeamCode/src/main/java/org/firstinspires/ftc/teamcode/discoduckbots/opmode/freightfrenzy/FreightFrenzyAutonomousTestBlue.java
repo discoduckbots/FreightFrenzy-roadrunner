@@ -36,6 +36,7 @@ import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.HardwareStore;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.MecanumDrivetrain;
 import org.firstinspires.ftc.teamcode.discoduckbots.opmode.RingStackDetector;
@@ -56,6 +57,7 @@ import org.firstinspires.ftc.teamcode.discoduckbots.sensors.TensorFlow;
 public class FreightFrenzyAutonomousTestBlue extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mecanumDrivetrain = null;
+    private CargoGrabber cargoGrabber = null;
 
 
     TensorFlow tensorFlow = null;
@@ -115,7 +117,7 @@ public class FreightFrenzyAutonomousTestBlue extends LinearOpMode {
     public void runOpMode() {
         HardwareStore hardwareStore = new HardwareStore(hardwareMap, telemetry, this);
         mecanumDrivetrain = hardwareStore.getMecanumDrivetrain();
-
+        cargoGrabber = hardwareStore.getCargoGrabber();
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         //initVuforia();
@@ -146,23 +148,29 @@ public class FreightFrenzyAutonomousTestBlue extends LinearOpMode {
 
             //tensorflow
             sleep(300);
+                    cargoGrabber.grab();
+                    sleep(300);
                     mecanumDrivetrain.driveByGyro(7.5, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
                     sleep(300);
                     mecanumDrivetrain.driveByGyro(5, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
                     sleep(300);
+                    //cargoGrabber.lower(1);
+                    //sleep(300);
+                    //cargoGrabber.release();
+                    //sleep(300);
                     mecanumDrivetrain.driveByGyro(6.5, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,0);
                     sleep(300);
                     mecanumDrivetrain.gyroTurn(90, 0.3, this );
                     sleep(500);
-                    mecanumDrivetrain.driveByGyro(4, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
+                    mecanumDrivetrain.driveByGyro(4, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 90);
                     sleep(500);
-                    mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 90);
-                    sleep(500);
+                    //mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 90);
+                    //sleep(500);
                     mecanumDrivetrain.driveByGyro(2, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
                     sleep(300);
-                    mecanumDrivetrain.driveByGyro(18, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,0);
+                    mecanumDrivetrain.driveByGyro(22, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,0);
                     sleep(300);
-                    mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED,0);
+                    mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED,0);
             /*mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
             mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             //drop cube

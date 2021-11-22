@@ -38,6 +38,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.HardwareStore;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.MecanumDrivetrain;
 import org.firstinspires.ftc.teamcode.discoduckbots.opmode.RingStackDetector;
@@ -55,11 +56,12 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "ffRed1", group = "drive")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFRed1", group = "drive")
 
 public class FreightFrenzyAutonomousRed1 extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mecanumDrivetrain = null;
+    private CargoGrabber cargoGrabber = null;
 
 
     TensorFlow tensorFlow = null;
@@ -119,6 +121,7 @@ public class FreightFrenzyAutonomousRed1 extends LinearOpMode {
     public void runOpMode() {
         HardwareStore hardwareStore = new HardwareStore(hardwareMap, telemetry, this);
         mecanumDrivetrain = hardwareStore.getMecanumDrivetrain();
+        cargoGrabber = hardwareStore.getCargoGrabber();
 
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
@@ -147,6 +150,8 @@ public class FreightFrenzyAutonomousRed1 extends LinearOpMode {
         waitForStart();
 
         if (opModeIsActive()) {
+            cargoGrabber.grab();
+            sleep(300);
            mecanumDrivetrain.driveByGyro(16, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
 
             /* mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);

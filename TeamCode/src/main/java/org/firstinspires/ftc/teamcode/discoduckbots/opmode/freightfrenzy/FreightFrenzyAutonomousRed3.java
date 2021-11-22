@@ -36,6 +36,7 @@ import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.HardwareStore;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.MecanumDrivetrain;
 import org.firstinspires.ftc.teamcode.discoduckbots.opmode.RingStackDetector;
@@ -56,7 +57,7 @@ import org.firstinspires.ftc.teamcode.discoduckbots.sensors.TensorFlow;
 public class FreightFrenzyAutonomousRed3 extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mecanumDrivetrain = null;
-
+    private CargoGrabber cargoGrabber = null;
 
     TensorFlow tensorFlow = null;
     RingStackDetector ringStackDetector = null;
@@ -115,6 +116,7 @@ public class FreightFrenzyAutonomousRed3 extends LinearOpMode {
     public void runOpMode() {
         HardwareStore hardwareStore = new HardwareStore(hardwareMap, telemetry, this);
         mecanumDrivetrain = hardwareStore.getMecanumDrivetrain();
+        cargoGrabber = hardwareStore.getCargoGrabber();
 
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
@@ -146,6 +148,8 @@ public class FreightFrenzyAutonomousRed3 extends LinearOpMode {
 
             //tensorflow
             sleep(300);
+            cargoGrabber.grab();
+            sleep(300);
             mecanumDrivetrain.driveByGyro(16, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
             mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
             /*mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
@@ -165,15 +169,16 @@ public class FreightFrenzyAutonomousRed3 extends LinearOpMode {
             telemetry.update();
             telemetry.addData("end","");
             telemetry.update();
-        }
+
         */
+        }
 
     }
 
-    /**
-     * Initialize the Vuforia localization engine.
 
-    private void initVuforia(); { */
+      //Initialize the Vuforia localization engine.
+
+    private void initVuforia() {
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          */

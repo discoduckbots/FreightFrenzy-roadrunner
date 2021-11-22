@@ -36,6 +36,7 @@ import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CarouselSpinner;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.HardwareStore;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.MecanumDrivetrain;
@@ -52,12 +53,12 @@ import org.firstinspires.ftc.teamcode.discoduckbots.sensors.TensorFlow;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "ffRed2", group = "drive")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFRed2", group = "drive")
 
 public class FreightFrenzyAutonomousRed2 extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mecanumDrivetrain = null;
-
+    private CargoGrabber cargoGrabber = null;
 
     TensorFlow tensorFlow = null;
     RingStackDetector ringStackDetector = null;
@@ -117,6 +118,7 @@ public class FreightFrenzyAutonomousRed2 extends LinearOpMode {
         HardwareStore hardwareStore = new HardwareStore(hardwareMap, telemetry, this);
         mecanumDrivetrain = hardwareStore.getMecanumDrivetrain();
         CarouselSpinner carouselSpinner = hardwareStore.getCarouselSpinner();
+        cargoGrabber = hardwareStore.getCargoGrabber();
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         //initVuforia();
@@ -144,7 +146,9 @@ public class FreightFrenzyAutonomousRed2 extends LinearOpMode {
         waitForStart();
 
         if (opModeIsActive()) {
-           mecanumDrivetrain.driveByGyro(7, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
+            //cargoGrabber.grab();
+            //sleep(300);
+           mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
            sleep(300);
            carouselSpinner.getOneDuckInAutonomous();
            sleep(300);
