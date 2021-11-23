@@ -29,6 +29,8 @@
 
 package org.firstinspires.ftc.teamcode.discoduckbots.opmode.freightfrenzy;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -158,19 +160,24 @@ public class FreightFrenzyAutonomousTestBlue extends LinearOpMode {
                     //sleep(300);
                     //cargoGrabber.release();
                     //sleep(300);
+            Log.d("FTC", "Before coming back");
                     mecanumDrivetrain.driveByGyro(6.5, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,0);
                     sleep(300);
+            Log.d("FTC", "Before turning");
                     mecanumDrivetrain.gyroTurn(90, 0.3, this );
                     sleep(500);
-                    mecanumDrivetrain.driveByGyro(4, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 90);
-                    sleep(500);
+
+                   // mecanumDrivetrain.driveByGyro(4, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 90);
+                   // sleep(500);
                     //mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 90);
                     //sleep(500);
-                    mecanumDrivetrain.driveByGyro(2, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
+                    Log.d("FTC", "Before hitting wall");
+                    mecanumDrivetrain.strafeLeftByTime(this, AUTONOMOUS_SPEED, 1);
                     sleep(300);
-                    mecanumDrivetrain.driveByGyro(22, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,0);
+                    Log.d("FTC", "After hitting wall");
+                    mecanumDrivetrain.driveByGyro(25, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,90);
                     sleep(300);
-                    mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED,0);
+                    //mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED,0);
             /*mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
             mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             //drop cube

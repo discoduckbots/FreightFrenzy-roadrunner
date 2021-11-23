@@ -703,6 +703,7 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mFrontLeft.setPower(speed);
         mFrontRight.setPower(-speed);
         opMode.sleep((long)(1000 * time));
+        stop();
     }
 
     public void strafeLeftByTime(LinearOpMode opMode, double speed, double time) {
@@ -711,6 +712,7 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mBackLeft.setPower(speed);
         mBackRight.setPower(-speed);
         opMode.sleep((long)(1000*time));
+        stop();
     }
 
     public void backwardByTime(LinearOpMode opMode, double speed, double time) {
@@ -719,5 +721,6 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mFrontLeft.setPower(-speed);
         mFrontRight.setPower(-speed);
         opMode.sleep((long)(1000 * time));
+        stop();
     }
 }
