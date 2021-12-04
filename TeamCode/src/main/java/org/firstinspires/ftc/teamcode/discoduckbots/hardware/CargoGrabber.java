@@ -1,9 +1,13 @@
 package org.firstinspires.ftc.teamcode.discoduckbots.hardware;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class CargoGrabber {
 
@@ -13,6 +17,8 @@ public class CargoGrabber {
     public CargoGrabber(DcMotor wobbleMoverMotor, Servo wobbleGrabber) {
         this.cargoMotor = wobbleMoverMotor;
         this.cargoGrabber = wobbleGrabber;
+        cargoMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        cargoMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
     public void drop(LinearOpMode opmode) {
@@ -43,6 +49,7 @@ public class CargoGrabber {
         }
         cargoMotor.setPower(0.0);
     }
+
 
     public void grabAndLiftByEncoder(int revolutions, LinearOpMode opMode){
         grab();
@@ -87,6 +94,7 @@ public class CargoGrabber {
         cargoMotor.setPower(0);
     }
 
+
     public void lower(double speed) {
         cargoMotor.setPower(-1 * speed);
     }
@@ -108,5 +116,11 @@ public class CargoGrabber {
         cargoGrabber.setDirection(Servo.Direction.REVERSE);
         cargoGrabber.setPosition(0.4);
 
+    }
+
+    public void print(Telemetry telemetry) {
+        telemetry.addData("Motor Position: ", cargoMotor.getCurrentPosition());
+        Log.d("FTC", "motor position " + cargoMotor.getCurrentPosition());
+        telemetry.update();
     }
 }

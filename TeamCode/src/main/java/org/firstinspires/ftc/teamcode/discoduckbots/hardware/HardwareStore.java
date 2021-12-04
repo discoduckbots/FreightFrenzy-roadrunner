@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
@@ -21,6 +22,7 @@ public class HardwareStore {
     private IMU imu;
     private ColorSensor colorSensor = null;
     private TouchSensor touchSensor = null;
+    private DistanceSensor distanceSensor = null;
 
     public DcMotorEx frontLeft ;
     public DcMotorEx frontRight ;
@@ -39,6 +41,7 @@ public class HardwareStore {
          carouselMotor = hardwareMap.get(DcMotorEx.class, "carouselMotor");
          cargoMotor = hardwareMap.get(DcMotor.class, "cargoMotor");
          cargoServo = hardwareMap.get(Servo.class, "cargoServo");
+         distanceSensor = hardwareMap.get(DistanceSensor.class, "distanceSensor");
         //colorSensor = hardwareMap.get(ColorSensor.class, "sensor_color");
         //touchSensor = hardwareMap.get(TouchSensor.class, "sensor_touch");
         
@@ -101,6 +104,7 @@ public class HardwareStore {
     }
 
     public TouchSensor getTouchSensor() { return touchSensor; }
+    public DistanceSensor getDistanceSensor() { return distanceSensor; }
 
     public CarouselSpinner getCarouselSpinner() {
         return carouselSpinner;

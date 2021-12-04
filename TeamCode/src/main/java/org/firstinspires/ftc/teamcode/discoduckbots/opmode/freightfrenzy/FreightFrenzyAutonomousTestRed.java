@@ -55,9 +55,9 @@ import org.firstinspires.ftc.teamcode.discoduckbots.sensors.TensorFlow;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFTestBlue", group = "drive")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFTestRed", group = "drive")
 
-public class FreightFrenzyAutonomousTestBlue extends LinearOpMode {
+public class FreightFrenzyAutonomousTestRed extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mecanumDrivetrain = null;
     private CargoGrabber cargoGrabber = null;
@@ -161,22 +161,16 @@ public class FreightFrenzyAutonomousTestBlue extends LinearOpMode {
                     sleep(1500);
                     int level = LEVEL_1;
                     int distance_to_strafe = 12;
-                    double forward_distance = 1.25;
             Log.d("FTC", "Checking for duck 1");
                     if (!duckDetector.isDuckPresent()) {
                         Log.d("FTC", "1st duck not present");
-                        mecanumDrivetrain.driveByGyro(5.5, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
+                        mecanumDrivetrain.driveByGyro(6, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
                         sleep(1500);
                         Log.d("FTC", "Checking for duck 2");
                         if (duckDetector.isDuckPresent()) {
                             level = LEVEL_3;
                         }
-                        else {
-                            forward_distance = 1.25;
-                            level = LEVEL_1;
-                        }
-                        distance_to_strafe = 7;
-
+                        distance_to_strafe = 8;
                     } else {
                         Log.d("FTC", "1st duck  present");
                         level =LEVEL_2;
@@ -185,10 +179,10 @@ public class FreightFrenzyAutonomousTestBlue extends LinearOpMode {
                     cargoGrabber.liftByEncoder(level);
                     sleep(1000);
             Log.d("FTC", "Strafing after lifting");
-                    mecanumDrivetrain.driveByGyro(distance_to_strafe, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
+                    mecanumDrivetrain.driveByGyro(distance_to_strafe, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
                     sleep(300);
             Log.d("FTC", "After starfing to hub");
-                    mecanumDrivetrain.driveByGyro(forward_distance, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+                    mecanumDrivetrain.driveByGyro(.75, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
                     sleep(300);
                     cargoGrabber.release();
                     sleep(1000);
@@ -198,13 +192,13 @@ public class FreightFrenzyAutonomousTestBlue extends LinearOpMode {
                     mecanumDrivetrain.driveByGyro(7.5, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED,0);
                     sleep(300);
                     //Log.d("FTC", "Before turning");
-                    mecanumDrivetrain.gyroTurn(-90, 0.3, this );
+                    mecanumDrivetrain.gyroTurn(90, 0.3, this );
                     sleep(500);
                     //Log.d("FTC", "Before hitting wall");
                     mecanumDrivetrain.strafeLeftByTime(this, AUTONOMOUS_SPEED, 1.8);
                     sleep(300);
                     //Log.d("FTC", "After hitting wall");
-                    mecanumDrivetrain.driveByGyro(34, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,-90);
+                    mecanumDrivetrain.driveByGyro(30, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,90);
                     sleep(300);
                     //mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED,0);
             /*mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);

@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.discoduckbots.hardware;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -432,6 +434,7 @@ public class MecanumDrivetrain implements DrivetrainInterface {
             mTelemetry.addData("Target Heading: ", targetHeading);
             mTelemetry.addData("Gyro Adjustment: " , gyroAdjustment);
             mTelemetry.addData("adjPower: " , adjustedPower);
+            Log.d("FTC", "adjustedPower : " + adjustedPower);
             mTelemetry.update();
         }
 

@@ -87,7 +87,7 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
             //telemetry.addData("Pusher Servo Position: ", shooter.getPusherServo().getPosition());
             //telemetry.update();
-
+            cargoGrabber.print(telemetry);
             /* Gamepad 1 */
             mecanumDrivetrain.drive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x, THROTTLE);
 
@@ -117,6 +117,8 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
             } else {
                 cargoGrabber.stop();
             }
+
+
 /*
             if (gamepad1.y) {
                 intake.pushRing();

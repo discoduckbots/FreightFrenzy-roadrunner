@@ -38,6 +38,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
+import org.firstinspires.ftc.teamcode.discoduckbots.hardware.DuckDetector;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.HardwareStore;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.Intake;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.MecanumDrivetrain;
@@ -73,10 +75,14 @@ public class TestTeleOp extends LinearOpMode {
     private TouchSensor touchSensor = null;
     private ColorSensor colorSensor = null; */
     private static final double AUTONOMOUS_SPEED = 0.4;
+    private static final int LEVEL_1 = 3200;
+    private static final int LEVEL_2 = 4500;
+    private static final int LEVEL_3 = 5200;
     @Override
     public void runOpMode() {
         HardwareStore hardwareStore = new HardwareStore(hardwareMap, telemetry, this);
         mecanumDrivetrain = hardwareStore.getMecanumDrivetrain();
+        CargoGrabber cargoGrabber = hardwareStore.getCargoGrabber();
       /*   intake = hardwareStore.getIntake();
         shooter = hardwareStore.getShooter();
         wobbleMover = hardwareStore.getWobbleMover();
@@ -85,16 +91,16 @@ public class TestTeleOp extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-
+        DuckDetector duckDetector = new DuckDetector(hardwareStore.getDistanceSensor());
         while (opModeIsActive()) {
-            if (gamepad1.left_bumper) {
-                mecanumDrivetrain.gyroTurn(90, 0.3, this);
-                //hardwareStore.intakePusher.setPosition(0);
-            } else if (gamepad1.right_bumper) {
-                mecanumDrivetrain.turnLeftGyro(90, hardwareStore.getImu(), 90, MecanumDrivetrain.DIRECTION_FORWARD, telemetry);
-                //hardwareStore.intakePusher.setDirection(Servo.Direction.FORWARD);
-                //hardwareStore.intakePusher.setPosition(180);
-            } else mecanumDrivetrain.stop();
+            duckDetector.isDuckPresent();
+            if (gamepad2.dpad_down) {
+                cargoGrabber.liftByEncoder(LEVEL_1);
+            } else if (gamepad2.dpad_up) {
+                cargoGrabber.liftByEncoder(LEVEL_2);
+            } else if (gamepad2.dpad_left) {
+                cargoGrabber.liftByEncoder(LEVEL_3);
+            }
 
             if (!gamepad1.a && !gamepad1.b && !gamepad1.y && !gamepad1.x ) {
                 mecanumDrivetrain.stop();
