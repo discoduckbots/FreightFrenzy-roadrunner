@@ -91,7 +91,7 @@ public class TestTeleOp extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        DuckDetector duckDetector = new DuckDetector(hardwareStore.getDistanceSensor());
+        DuckDetector duckDetector = new DuckDetector(hardwareStore.getDistanceSensor2());
         while (opModeIsActive()) {
             duckDetector.isDuckPresent();
             if (gamepad2.dpad_down) {

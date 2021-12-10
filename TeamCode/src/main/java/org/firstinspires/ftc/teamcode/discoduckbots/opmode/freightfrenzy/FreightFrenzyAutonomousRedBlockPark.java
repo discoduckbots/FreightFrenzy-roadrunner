@@ -170,17 +170,17 @@ public class FreightFrenzyAutonomousRedBlockPark extends LinearOpMode {
                         Log.d("FTC", "Checking for duck 2");
                         if (duckDetector.isDuckPresent()) {
                             level = LEVEL_3;
-                            forward_distance = 1.8;
+                            forward_distance = 2.5;
                         }
                         else{
                             forward_distance = 2.2;
                             level = LEVEL_1;
                         }
-                        distance_to_strafe = 9;
+                        distance_to_strafe = 6.5;
                     } else {
                         Log.d("FTC", "1st duck  present");
                         level =LEVEL_2;
-                        distance_to_strafe = 12.5;
+                        distance_to_strafe = 11;
                     }
             Log.d("FTC", "level " + level + " distance to strafe " + distance_to_strafe);
                     cargoGrabber.liftByEncoder(level);
