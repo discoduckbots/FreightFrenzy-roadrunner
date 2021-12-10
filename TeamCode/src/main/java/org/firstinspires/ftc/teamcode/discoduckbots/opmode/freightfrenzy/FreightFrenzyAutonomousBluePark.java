@@ -30,21 +30,17 @@
 package org.firstinspires.ftc.teamcode.discoduckbots.opmode.freightfrenzy;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.HardwareStore;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.MecanumDrivetrain;
 import org.firstinspires.ftc.teamcode.discoduckbots.opmode.RingStackDetector;
 import org.firstinspires.ftc.teamcode.discoduckbots.sensors.TensorFlow;
-
-import java.util.List;
 
 /**
  * This 2020-2021 OpMode illustrates the basics of using the TensorFlow Object Detection API to
@@ -56,9 +52,9 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFRed1", group = "drive")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFBluePark", group = "drive")
 
-public class FreightFrenzyAutonomousRed1 extends LinearOpMode {
+public class FreightFrenzyAutonomousBluePark extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mecanumDrivetrain = null;
     private CargoGrabber cargoGrabber = null;
@@ -67,7 +63,7 @@ public class FreightFrenzyAutonomousRed1 extends LinearOpMode {
     TensorFlow tensorFlow = null;
     RingStackDetector ringStackDetector = null;
 
-    private static final double AUTONOMOUS_SPEED = 0.3;
+    private static final double AUTONOMOUS_SPEED = 0.4;
     private static final double STRAFE_SPEED = 0.5;
     private static final double ROTATION_SPEED = 0.4;
     private static final int WOBBLE_GRABBER_REVOLUTIONS = 6250;
@@ -150,35 +146,40 @@ public class FreightFrenzyAutonomousRed1 extends LinearOpMode {
         waitForStart();
 
         if (opModeIsActive()) {
-            cargoGrabber.grab();
-            sleep(300);
-           mecanumDrivetrain.driveByGyro(16, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
 
-            /* mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
             //tensorflow
             sleep(300);
-            mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
-            //spin carousel
-            sleep(200);
-            //carouselSpinner.setPower(0.7);
-            sleep(1000);
-            //carouselSpinner.setPower(0);
-            mecanumDrivetrain.driveByGyro(18, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
-            mecanumDrivetrain.driveByGyro(5, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+            //cargoGrabber.grab();
+            sleep(300);
+            mecanumDrivetrain.driveByGyro(16, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
+
+            /*mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
+            mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             //drop cube
+            mecanumDrivetrain.driveByGyro(18, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
+            mecanumDrivetrain.driveByGyro(5, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
+           
             sleep(200);
-            //This distance depends on if we are going over the barrier or through the gap
-            mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
-            mecanumDrivetrain.driveByGyro(21, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
-*/
+            /*This distance depends on if we are going over the barrier or through the gap*/
+            /*mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+            sleep(200);
+            mecanumDrivetrain.gyroTurn(90,0.3,this);
+            sleep (200);
+            mecanumDrivetrain.driveByGyro(21, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
+
             telemetry.addData("end","");
             telemetry.update();
+            telemetry.addData("end","");
+            telemetry.update();
+
+             */
         }
+
+
     }
 
-    /**
-     * Initialize the Vuforia localization engine.
-     */
+
+
     private void initVuforia() {
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.

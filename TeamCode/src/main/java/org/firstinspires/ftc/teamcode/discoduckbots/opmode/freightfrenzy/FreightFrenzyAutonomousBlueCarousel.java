@@ -37,6 +37,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
+import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CarouselSpinner;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.HardwareStore;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.MecanumDrivetrain;
 import org.firstinspires.ftc.teamcode.discoduckbots.opmode.RingStackDetector;
@@ -52,12 +53,13 @@ import org.firstinspires.ftc.teamcode.discoduckbots.sensors.TensorFlow;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFBlue3", group = "drive")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFBlueCarousel", group = "drive")
 
-public class FreightFrenzyAutonomousBlue3 extends LinearOpMode {
+public class FreightFrenzyAutonomousBlueCarousel extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mecanumDrivetrain = null;
     private CargoGrabber cargoGrabber = null;
+
 
     TensorFlow tensorFlow = null;
     RingStackDetector ringStackDetector = null;
@@ -118,6 +120,7 @@ public class FreightFrenzyAutonomousBlue3 extends LinearOpMode {
         mecanumDrivetrain = hardwareStore.getMecanumDrivetrain();
         cargoGrabber = hardwareStore.getCargoGrabber();
 
+        CarouselSpinner carouselSpinner = hardwareStore.getCarouselSpinner();
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         //initVuforia();
@@ -150,13 +153,19 @@ public class FreightFrenzyAutonomousBlue3 extends LinearOpMode {
             sleep(300);
             cargoGrabber.grab();
             sleep(300);
-            mecanumDrivetrain.driveByGyro(16, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
-            mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
-           /* mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
+            mecanumDrivetrain.driveByGyro(0.5, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
+            sleep(300);
+            mecanumDrivetrain.driveByGyro( 2.5,mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 0);
+            sleep(1000);
+            carouselSpinner.getOneDuckInAutonomous2();
+            sleep(300);
+            mecanumDrivetrain.driveByGyro(11, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
+            /*mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
+            mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             //drop cube
             mecanumDrivetrain.driveByGyro(18, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
             mecanumDrivetrain.driveByGyro(5, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
-           
+
             sleep(200);
             /*This distance depends on if we are going over the barrier or through the gap*/
             /*mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
@@ -176,12 +185,11 @@ public class FreightFrenzyAutonomousBlue3 extends LinearOpMode {
 
     }
 
+    /**
+     * Initialize the Vuforia localization engine.
 
+    private void initVuforia(); {
 
-    private void initVuforia() {
-        /*
-         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
-         */
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
@@ -192,7 +200,7 @@ public class FreightFrenzyAutonomousBlue3 extends LinearOpMode {
 
         // Loading trackables is not necessary for the TensorFlow Object Detection engine.
     }
-
+*/
     /**
      * Initialize the TensorFlow Object Detection engine.
      */

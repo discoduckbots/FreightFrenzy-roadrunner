@@ -23,6 +23,7 @@ public class HardwareStore {
     private ColorSensor colorSensor = null;
     private TouchSensor touchSensor = null;
     private DistanceSensor distanceSensor = null;
+    private DistanceSensor distanceSensor2 = null;
 
     public DcMotorEx frontLeft ;
     public DcMotorEx frontRight ;
@@ -42,6 +43,7 @@ public class HardwareStore {
          cargoMotor = hardwareMap.get(DcMotor.class, "cargoMotor");
          cargoServo = hardwareMap.get(Servo.class, "cargoServo");
          distanceSensor = hardwareMap.get(DistanceSensor.class, "distanceSensor");
+        distanceSensor2 = hardwareMap.get(DistanceSensor.class, "distanceSensor2");
         //colorSensor = hardwareMap.get(ColorSensor.class, "sensor_color");
         //touchSensor = hardwareMap.get(TouchSensor.class, "sensor_touch");
         
@@ -105,6 +107,7 @@ public class HardwareStore {
 
     public TouchSensor getTouchSensor() { return touchSensor; }
     public DistanceSensor getDistanceSensor() { return distanceSensor; }
+    public DistanceSensor getDistanceSensor2() { return distanceSensor2; }
 
     public CarouselSpinner getCarouselSpinner() {
         return carouselSpinner;

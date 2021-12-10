@@ -29,6 +29,8 @@
 
 package org.firstinspires.ftc.teamcode.discoduckbots.opmode.freightfrenzy;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -37,7 +39,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
-import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CarouselSpinner;
+import org.firstinspires.ftc.teamcode.discoduckbots.hardware.DuckDetector;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.HardwareStore;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.MecanumDrivetrain;
 import org.firstinspires.ftc.teamcode.discoduckbots.opmode.RingStackDetector;
@@ -53,9 +55,9 @@ import org.firstinspires.ftc.teamcode.discoduckbots.sensors.TensorFlow;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFBlue2", group = "drive")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFBlueBlockPark", group = "drive")
 
-public class FreightFrenzyAutonomousBlue2 extends LinearOpMode {
+public class FreightFrenzyAutonomousBlueBlockPark extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mecanumDrivetrain = null;
     private CargoGrabber cargoGrabber = null;
@@ -65,9 +67,12 @@ public class FreightFrenzyAutonomousBlue2 extends LinearOpMode {
     RingStackDetector ringStackDetector = null;
 
     private static final double AUTONOMOUS_SPEED = 0.3;
-    private static final double STRAFE_SPEED = 0.3;
+    private static final double STRAFE_SPEED = 0.35;
     private static final double ROTATION_SPEED = 0.4;
     private static final int WOBBLE_GRABBER_REVOLUTIONS = 6250;
+    private static final int LEVEL_1 = 3200;
+    private static final int LEVEL_2 = 4500;
+    private static final int LEVEL_3 = 5200;
   /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
    * the following 4 detectable objects
    *  0: Ball,
@@ -119,8 +124,7 @@ public class FreightFrenzyAutonomousBlue2 extends LinearOpMode {
         HardwareStore hardwareStore = new HardwareStore(hardwareMap, telemetry, this);
         mecanumDrivetrain = hardwareStore.getMecanumDrivetrain();
         cargoGrabber = hardwareStore.getCargoGrabber();
-
-        CarouselSpinner carouselSpinner = hardwareStore.getCarouselSpinner();
+        DuckDetector duckDetector = new DuckDetector(hardwareStore.getDistanceSensor());
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         //initVuforia();
@@ -151,21 +155,64 @@ public class FreightFrenzyAutonomousBlue2 extends LinearOpMode {
 
             //tensorflow
             sleep(300);
-            cargoGrabber.grab();
-            sleep(300);
-            mecanumDrivetrain.driveByGyro(0.5, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
-            sleep(300);
-            mecanumDrivetrain.driveByGyro(7.5, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 0);
-            sleep(1000);
-            carouselSpinner.getOneDuckInAutonomous2();
-            sleep(300);
-            mecanumDrivetrain.driveByGyro(11, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
+                    cargoGrabber.grab();
+                    sleep(300);
+                    mecanumDrivetrain.driveByGyro(5.5, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+                    sleep(1500);
+                    int level = LEVEL_1;
+                    double distance_to_strafe = 12;
+                    double forward_distance = 1.2;
+            Log.d("FTC", "Checking for duck 1");
+                    if (!duckDetector.isDuckPresent()) {
+                        Log.d("FTC", "1st duck not present");
+                        mecanumDrivetrain.driveByGyro(5, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, STRAFE_SPEED, 0);
+                        sleep(1500);
+                        Log.d("FTC", "Checking for duck 2");
+                        if (duckDetector.isDuckPresent()) {
+                            level = LEVEL_1;
+                            forward_distance = 2.25;
+                        }
+                        else {
+                            level = LEVEL_3;
+                        }
+                        distance_to_strafe = 5.5;
+
+                    } else {
+                        Log.d("FTC", "1st duck  present");
+                        level =LEVEL_2;
+                    }
+            Log.d("FTC", "level " + level + " distance to strafe " + distance_to_strafe);
+                    cargoGrabber.liftByEncoder(level);
+                    sleep(1000);
+            Log.d("FTC", "Strafing after lifting");
+                    mecanumDrivetrain.driveByGyro(distance_to_strafe, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, STRAFE_SPEED, 0);
+                    sleep(300);
+            Log.d("FTC", "After starfing to hub");
+                    mecanumDrivetrain.driveByGyro(forward_distance, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+                    sleep(300);
+                    cargoGrabber.release();
+                    sleep(1000);
+                    //cargoGrabber.liftByEncoder(10);
+                    sleep(1000);
+                    //Log.d("FTC", "Before coming back");
+                    mecanumDrivetrain.driveByGyro(7.5, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED,0);
+                    sleep(300);
+                    //Log.d("FTC", "Before turning");
+                    mecanumDrivetrain.gyroTurn(-90, 0.3, this );
+                    sleep(500);
+                    //Log.d("FTC", "Before hitting wall");
+                    mecanumDrivetrain.strafeLeftByTime(this, AUTONOMOUS_SPEED, 1.8);
+                    sleep(300);
+                    //Log.d("FTC", "After hitting wall");
+                    mecanumDrivetrain.driveByGyro(34, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,-90);
+                    sleep(300);
+                    //mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED,0);
             /*mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
             mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             //drop cube
             mecanumDrivetrain.driveByGyro(18, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
             mecanumDrivetrain.driveByGyro(5, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
-
+           
             sleep(200);
             /*This distance depends on if we are going over the barrier or through the gap*/
             /*mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
@@ -187,9 +234,12 @@ public class FreightFrenzyAutonomousBlue2 extends LinearOpMode {
 
     /**
      * Initialize the Vuforia localization engine.
+     **/
 
-    private void initVuforia(); {
-
+    private void initVuforia() {
+        /*
+         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+         */
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
@@ -200,7 +250,7 @@ public class FreightFrenzyAutonomousBlue2 extends LinearOpMode {
 
         // Loading trackables is not necessary for the TensorFlow Object Detection engine.
     }
-*/
+
     /**
      * Initialize the TensorFlow Object Detection engine.
      */
