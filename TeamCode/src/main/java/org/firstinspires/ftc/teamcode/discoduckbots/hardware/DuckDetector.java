@@ -22,6 +22,7 @@ public class DuckDetector {
             maxValue = 8;
         }
         if ( distance < maxValue) {
+            Log.d("FTC", "found duck");
             return true;
         }else {
             return false;
