@@ -70,8 +70,10 @@ public class FreightFrenzyAutonomousRedBlockPark extends LinearOpMode {
     private static final double STRAFE_SPEED = 0.4;
     private static final double ROTATION_SPEED = 0.4;
     private static final int WOBBLE_GRABBER_REVOLUTIONS = 6250;
-    private static final int LEVEL_1 = 3200;
-    private static final int LEVEL_2 = 4475;
+    private static final int LEVEL_1 = 3240
+
+            ;
+    private static final int LEVEL_2 = 4485;
     private static final int LEVEL_3 = 5175;
   /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
    * the following 4 detectable objects
@@ -161,7 +163,7 @@ public class FreightFrenzyAutonomousRedBlockPark extends LinearOpMode {
                     sleep(1500);
                     int level = LEVEL_1;
                     double distance_to_strafe = 18;
-                    double forward_distance = 2.25;
+                    double forward_distance = 2.5;
             Log.d("FTC", "Checking for duck 1");
                     if (!duckDetector.isDuckPresent(2)) {
                         Log.d("FTC", "1st duck not present");

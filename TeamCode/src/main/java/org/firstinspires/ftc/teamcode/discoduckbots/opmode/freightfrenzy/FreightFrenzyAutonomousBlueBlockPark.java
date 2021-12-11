@@ -70,8 +70,8 @@ public class FreightFrenzyAutonomousBlueBlockPark extends LinearOpMode {
     private static final double STRAFE_SPEED = 0.35;
     private static final double ROTATION_SPEED = 0.4;
     private static final int WOBBLE_GRABBER_REVOLUTIONS = 6250;
-    private static final int LEVEL_1 = 3200;
-    private static final int LEVEL_2 = 4475;
+    private static final int LEVEL_1 = 3220;
+    private static final int LEVEL_2 = 4485;
     private static final int LEVEL_3 = 5175;
   /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
    * the following 4 detectable objects
@@ -181,6 +181,7 @@ public class FreightFrenzyAutonomousBlueBlockPark extends LinearOpMode {
                     } else {
                         Log.d("FTC", "1st duck  present");
                         level =LEVEL_2;
+                        distance_to_strafe = 11.5;
                     }
             Log.d("FTC", "level " + level + " distance to strafe " + distance_to_strafe);
                     cargoGrabber.liftByEncoder(level);
