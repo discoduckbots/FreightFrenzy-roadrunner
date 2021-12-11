@@ -434,7 +434,7 @@ public class MecanumDrivetrain implements DrivetrainInterface {
             mTelemetry.addData("Target Heading: ", targetHeading);
             mTelemetry.addData("Gyro Adjustment: " , gyroAdjustment);
             mTelemetry.addData("adjPower: " , adjustedPower);
-            Log.d("FTC", "adjustedPower : " + adjustedPower);
+            //Log.d("FTC", "adjustedPower : " + adjustedPower);
             mTelemetry.update();
         }
 
