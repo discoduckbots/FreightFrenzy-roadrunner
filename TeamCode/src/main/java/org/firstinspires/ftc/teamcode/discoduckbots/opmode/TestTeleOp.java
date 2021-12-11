@@ -93,7 +93,7 @@ public class TestTeleOp extends LinearOpMode {
         waitForStart();
         DuckDetector duckDetector = new DuckDetector(hardwareStore.getDistanceSensor2());
         while (opModeIsActive()) {
-            duckDetector.isDuckPresent();
+            duckDetector.isDuckPresent(2);
             if (gamepad2.dpad_down) {
                 cargoGrabber.liftByEncoder(LEVEL_1);
             } else if (gamepad2.dpad_up) {
