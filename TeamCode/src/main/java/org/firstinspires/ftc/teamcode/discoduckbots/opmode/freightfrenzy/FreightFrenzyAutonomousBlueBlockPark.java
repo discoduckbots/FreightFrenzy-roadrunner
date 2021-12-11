@@ -163,12 +163,12 @@ public class FreightFrenzyAutonomousBlueBlockPark extends LinearOpMode {
                     double distance_to_strafe = 12;
                     double forward_distance = 1.2;
             Log.d("FTC", "Checking for duck 1");
-                    if (!duckDetector.isDuckPresent()) {
+                    if (!duckDetector.isDuckPresent(1)) {
                         Log.d("FTC", "1st duck not present");
                         mecanumDrivetrain.driveByGyro(5, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, STRAFE_SPEED, 0);
                         sleep(1500);
                         Log.d("FTC", "Checking for duck 2");
-                        if (duckDetector.isDuckPresent()) {
+                        if (duckDetector.isDuckPresent(1)) {
                             level = LEVEL_1;
                             forward_distance = 2.25;
                         }
