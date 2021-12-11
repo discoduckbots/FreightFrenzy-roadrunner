@@ -173,7 +173,7 @@ public class FreightFrenzyAutonomousRedBlockPark extends LinearOpMode {
                             forward_distance = 2.5;
                         }
                         else{
-                            forward_distance = 2.2;
+                            forward_distance = 2.5;
                             level = LEVEL_1;
                         }
                         distance_to_strafe = 6.5;
