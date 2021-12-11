@@ -170,16 +170,17 @@ public class FreightFrenzyAutonomousRedBlockCarousel extends LinearOpMode {
                         Log.d("FTC", "Checking for duck 2");
                         if (duckDetector.isDuckPresent(2)) {
                             level = LEVEL_1;
-                            forward_distance = 1.8;
+                            forward_distance = 2.25;
                         }
                         else{
-                            forward_distance = 2.2;
+                            forward_distance = 3;
                             level = LEVEL_3;
                         }
                         distance_to_strafe = 9;
                     } else {
                         Log.d("FTC", "1st duck  present");
                         level =LEVEL_2;
+                        forward_distance = 2;
                         distance_to_strafe = 12.5;
                     }
             Log.d("FTC", "level " + level + " distance to strafe " + distance_to_strafe);
