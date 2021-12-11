@@ -70,7 +70,7 @@ public class FreightFrenzyAutonomousBlueBlockPark extends LinearOpMode {
     private static final double STRAFE_SPEED = 0.35;
     private static final double ROTATION_SPEED = 0.4;
     private static final int WOBBLE_GRABBER_REVOLUTIONS = 6250;
-    private static final int LEVEL_1 = 3210;
+    private static final int LEVEL_1 = 3230;
     private static final int LEVEL_2 = 4485;
     private static final int LEVEL_3 = 5175;
   /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
