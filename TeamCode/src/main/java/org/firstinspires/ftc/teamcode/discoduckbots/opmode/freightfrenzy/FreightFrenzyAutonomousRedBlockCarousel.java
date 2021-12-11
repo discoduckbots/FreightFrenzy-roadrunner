@@ -173,7 +173,7 @@ public class FreightFrenzyAutonomousRedBlockCarousel extends LinearOpMode {
                             forward_distance = 2.25;
                         }
                         else{
-                            forward_distance = 3;
+                            forward_distance = 2;
                             level = LEVEL_3;
                         }
                         distance_to_strafe = 9;

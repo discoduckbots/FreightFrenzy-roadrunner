@@ -170,7 +170,7 @@ public class FreightFrenzyAutonomousRedBlockPark extends LinearOpMode {
                         Log.d("FTC", "Checking for duck 2");
                         if (duckDetector.isDuckPresent(2)) {
                             level = LEVEL_3;
-                            forward_distance = 2.5;
+                            forward_distance = 2;
                         }
                         else{
                             forward_distance = 2.5;
