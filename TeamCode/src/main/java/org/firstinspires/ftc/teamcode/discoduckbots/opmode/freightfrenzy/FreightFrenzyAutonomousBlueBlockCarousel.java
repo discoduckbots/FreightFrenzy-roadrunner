@@ -71,8 +71,8 @@ public class FreightFrenzyAutonomousBlueBlockCarousel extends LinearOpMode {
     private static final double ROTATION_SPEED = 0.4;
     private static final int WOBBLE_GRABBER_REVOLUTIONS = 6250;
     private static final int LEVEL_1 = 3200;
-    private static final int LEVEL_2 = 4500;
-    private static final int LEVEL_3 = 5150;
+    private static final int LEVEL_2 = 4475;
+    private static final int LEVEL_3 = 5175;
   /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
    * the following 4 detectable objects
    *  0: Ball,
@@ -156,7 +156,9 @@ public class FreightFrenzyAutonomousBlueBlockCarousel extends LinearOpMode {
             //tensorflow
             sleep(300);
                     cargoGrabber.grab();
-                    sleep(300);
+                    Log.d("FTC", "sleeping for 5 sec");
+                    sleep(300 + 5 *1000);
+                    Log.d("FTC", "FINISH sleeping for 5 sec");
                     mecanumDrivetrain.driveByGyro(5.5, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
                     sleep(1500);
                     int level = LEVEL_1;
@@ -170,7 +172,7 @@ public class FreightFrenzyAutonomousBlueBlockCarousel extends LinearOpMode {
                         Log.d("FTC", "Checking for duck 2");
                         if (duckDetector.isDuckPresent(1)) {
                             level = LEVEL_3;
-                            forward_distance = 2.25;
+                            forward_distance = 2;
                         }
                         else {
                             level = LEVEL_1;
