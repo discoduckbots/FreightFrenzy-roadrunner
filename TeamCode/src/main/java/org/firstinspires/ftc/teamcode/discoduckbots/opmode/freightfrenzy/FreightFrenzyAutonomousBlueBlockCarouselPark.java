@@ -39,6 +39,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
+import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CarouselSpinner;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.DuckDetector;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.HardwareStore;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.MecanumDrivetrain;
@@ -55,12 +56,13 @@ import org.firstinspires.ftc.teamcode.discoduckbots.sensors.TensorFlow;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFBlueBlockPark", group = "drive")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFBlueBlockCarouselPark", group = "drive")
 
-public class FreightFrenzyAutonomousBlueBlockPark extends LinearOpMode {
+public class FreightFrenzyAutonomousBlueBlockCarouselPark extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mecanumDrivetrain = null;
     private CargoGrabber cargoGrabber = null;
+    private CarouselSpinner carouselSpinner = null;
 
 
     TensorFlow tensorFlow = null;
@@ -126,6 +128,7 @@ public class FreightFrenzyAutonomousBlueBlockPark extends LinearOpMode {
         HardwareStore hardwareStore = new HardwareStore(hardwareMap, telemetry, this);
         mecanumDrivetrain = hardwareStore.getMecanumDrivetrain();
         cargoGrabber = hardwareStore.getCargoGrabber();
+        carouselSpinner = hardwareStore.getCarouselSpinner();
         DuckDetector duckDetector = new DuckDetector(hardwareStore.getDistanceSensor());
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
@@ -200,16 +203,23 @@ public class FreightFrenzyAutonomousBlueBlockPark extends LinearOpMode {
                     //cargoGrabber.liftByEncoder(10);
                     sleep(1000);
                     //Log.d("FTC", "Before coming back");
-                    mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED,0);
+                    mecanumDrivetrain.driveByGyro(17, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED,0);
                     sleep(300);
+                    //CAROUSEL SPIN***
+                    mecanumDrivetrain.driveByGyro(44, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 0);
+                    sleep(300);
+                    carouselSpinner.getOneDuckInAutonomous();
+                    sleep(300);
+                    mecanumDrivetrain.driveByGyro(52, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, STRAFE_SPEED, 0);
+                   sleep(300);
+                   mecanumDrivetrain.driveByGyro(4, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, STRAFE_SPEED, 0);
                     //Log.d("FTC", "Before turning");
-                    mecanumDrivetrain.gyroTurn(-90, 0.45, this );
                     sleep(500);
+                    mecanumDrivetrain.forwardByTime(this, AUTONOMOUS_SPEED,0.75 );
                     //Log.d("FTC", "Before hitting wall");
-                    mecanumDrivetrain.strafeLeftByTime(this, AUTONOMOUS_SPEED, 1.8);
                     sleep(300);
                     //Log.d("FTC", "After hitting wall");
-                    mecanumDrivetrain.driveByGyro(55, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED,-90);
+                    mecanumDrivetrain.driveByGyro(81, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED,-90);
                     sleep(300);
                     //mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED,0);
             /*mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);

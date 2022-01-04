@@ -33,13 +33,9 @@ import android.util.Log;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
-import org.firstinspires.ftc.teamcode.discoduckbots.hardware.DuckDetector;
-import org.firstinspires.ftc.teamcode.discoduckbots.hardware.HardwareStore;
-import org.firstinspires.ftc.teamcode.discoduckbots.hardware.MecanumDrivetrain;
 
 
 /**
@@ -55,8 +51,8 @@ import org.firstinspires.ftc.teamcode.discoduckbots.hardware.MecanumDrivetrain;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Test New Arm", group="Linear Opmode")
-public class TestFFNewArm extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Test New Intake", group="Linear Opmode")
+public class TestFFIntake extends LinearOpMode {
 
   //  private static final double THROTTLE = 0.45;
 
@@ -68,9 +64,7 @@ public class TestFFNewArm extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-
-        CRServo servo = hardwareMap.get(CRServo.class, "armservo");
-
+        DcMotor motor = hardwareMap.get(DcMotor.class, "intakeMotor");
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -81,12 +75,11 @@ public class TestFFNewArm extends LinearOpMode {
             if (gamepad1.y) {
 
                 Log.d("FTC", "gamepad.y");
-               servo.setPower(1);
-            }else if (gamepad1.a){
-                Log.d("FTC", "gamepad.a");
-                servo.setPower(-1);
-            } else {
-                servo.setPower(0);
+                motor.setDirection(DcMotorSimple.Direction.REVERSE);
+                motor.setPower(0.6);
+            }
+             else {
+                motor.setPower(0);
             }
         }
 

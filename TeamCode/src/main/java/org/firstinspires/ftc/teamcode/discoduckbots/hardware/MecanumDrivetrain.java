@@ -16,8 +16,8 @@ import org.firstinspires.ftc.teamcode.discoduckbots.util.NumberUtility;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class MecanumDrivetrain implements DrivetrainInterface {
-    private static final float ENCODER_CLICKS_FORWARD_1_INCH = 19.0f;//18.75487911f;
-    private static final float ENCODER_CLICKS_STRAFE_1_INCH = 25.8944908f;
+    private static final float ENCODER_CLICKS_FORWARD_1_INCH = 43.25f;//19.0f 18.75487911f;
+    private static final float ENCODER_CLICKS_STRAFE_1_INCH = 44.325f;//25.8944908f;
 
     public static final int DIRECTION_FORWARD = 0;
     public static final int DIRECTION_REVERSE = 1;
@@ -94,8 +94,24 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         headingPID.setContinuous(true);
         headingPID.setAtTargetThreshold(Math.toRadians(3));
 
+        mFrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        mFrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        mBackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        mBackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        mFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mFrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        mBackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
+
+    }
+    public void print() {
+        Log.d("FTC", "backLeft: " + mBackLeft.getCurrentPosition() );
+        Log.d("FTC", "backRight: " + mBackRight.getCurrentPosition() );
+        Log.d("FTC", "frontLeft: " + mFrontLeft.getCurrentPosition() );
+        Log.d("FTC", "frontRight: " + mFrontRight.getCurrentPosition() );
     }
 
     private void setMotorDirection(int direction){
@@ -136,10 +152,12 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mFrontRight.setDirection((direction));
     }
     private void setDirectionBackLeft(DcMotorSimple.Direction direction) {
-        mBackLeft.setDirection((direction));
+        //mBackLeft.setDirection((direction));
+        mBackLeft.setDirection(invertDirection(direction));
     }
     private void setDirectionBackRight(DcMotorSimple.Direction direction) {
-        mBackRight.setDirection(invertDirection(direction));
+        //mBackRight.setDirection(invertDirection(direction));
+        mBackRight.setDirection((direction));
     }
 
 
@@ -201,6 +219,10 @@ public class MecanumDrivetrain implements DrivetrainInterface {
         mFrontLeft.setPower(fl);
         mBackRight.setPower(br);
         mBackLeft.setPower(bl);
+        Log.d("FTC", "backLeft: " + mBackLeft.getCurrentPosition() );
+        Log.d("FTC", "backRight: " + mBackRight.getCurrentPosition() );
+        Log.d("FTC", "frontLeft: " + mFrontLeft.getCurrentPosition() );
+        Log.d("FTC", "frontRight: " + mFrontRight.getCurrentPosition() );
     }
 
     /**

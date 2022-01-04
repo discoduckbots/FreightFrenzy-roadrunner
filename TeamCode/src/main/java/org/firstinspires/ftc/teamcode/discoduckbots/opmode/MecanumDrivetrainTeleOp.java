@@ -29,6 +29,8 @@
 
 package org.firstinspires.ftc.teamcode.discoduckbots.opmode;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -36,6 +38,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CarouselSpinner;
+import org.firstinspires.ftc.teamcode.discoduckbots.hardware.FFIntake;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.HardwareStore;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.Intake;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.MecanumDrivetrain;
@@ -58,7 +61,7 @@ import org.firstinspires.ftc.teamcode.discoduckbots.hardware.WobbleMover;
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Nikolay Opmode", group="Linear Opmode")
 public class MecanumDrivetrainTeleOp extends LinearOpMode {
 
-    private static double THROTTLE = 0.35;
+    private static double THROTTLE = 0.5;
     private static double intakeSpeed = .81;
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -68,6 +71,7 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
     private CargoGrabber cargoGrabber = null;
     private Shooter shooter = null;
     private WobbleMover wobbleMover = null;
+    private FFIntake ffIntake = null;
 
 
     @Override
@@ -79,6 +83,8 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         cargoGrabber = hardwareStore.getCargoGrabber();
         shooter = hardwareStore.getShooter();
         wobbleMover = hardwareStore.getWobbleMover();
+        ffIntake = hardwareStore.getFFIntake();
+
 
 
         // Wait for the game to start (driver presses PLAY)
@@ -87,7 +93,7 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
             //telemetry.addData("Pusher Servo Position: ", shooter.getPusherServo().getPosition());
             //telemetry.update();
-            cargoGrabber.print(telemetry);
+            cargoGrabber.print();
             /* Gamepad 1 */
             mecanumDrivetrain.drive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x, THROTTLE);
 
@@ -103,11 +109,22 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
                 carouselSpinner.stop();
                 // intake.stop();
                 }
+            if (gamepad1.x) {
+                ffIntake.intake();
+
+            } else if (gamepad1.y) {
+                ffIntake.outtake();
+
+            } else {
+                ffIntake.stop();
+            }
 
             if (gamepad2.left_bumper) {
              cargoGrabber.grab();
             } else if (gamepad2.right_bumper) {
                 cargoGrabber.release();
+            }else if (gamepad2.a) {
+                cargoGrabber.open();
             }
 
             if (gamepad2.dpad_up) {
@@ -118,6 +135,10 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
                 cargoGrabber.stop();
             }
 
+
+            telemetry.addData("servo position: ", cargoGrabber.printServoValue());
+            Log.d("FTC", "servo position " + cargoGrabber.printServoValue());
+            telemetry.update();
 
 /*
             if (gamepad1.y) {

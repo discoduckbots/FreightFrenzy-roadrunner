@@ -74,10 +74,10 @@ public class TestTeleOp extends LinearOpMode {
     private WobbleMover wobbleMover = null;
     private TouchSensor touchSensor = null;
     private ColorSensor colorSensor = null; */
-    private static final double AUTONOMOUS_SPEED = 0.4;
-    private static final int LEVEL_1 = 3200;
-    private static final int LEVEL_2 = 4500;
-    private static final int LEVEL_3 = 5200;
+    private static final double AUTONOMOUS_SPEED = 0.6;
+   //private static final int LEVEL_1 = 3200;
+    //private static final int LEVEL_2 = 4500;
+    //private static final int LEVEL_3 = 5200;
     @Override
     public void runOpMode() {
         HardwareStore hardwareStore = new HardwareStore(hardwareMap, telemetry, this);
@@ -91,16 +91,28 @@ public class TestTeleOp extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        DuckDetector duckDetector = new DuckDetector(hardwareStore.getDistanceSensor2());
+        //DuckDetector duckDetector = new DuckDetector(hardwareStore.getDistanceSensor2());
         while (opModeIsActive()) {
-            duckDetector.isDuckPresent(2);
+            mecanumDrivetrain.print();
+           // cargoGrabber.print(telemetry);
+
+            //duckDetector.isDuckPresent(2);
             if (gamepad2.dpad_down) {
-                cargoGrabber.liftByEncoder(LEVEL_1);
+                cargoGrabber.lift(0.3);
+            }
+            else if(gamepad2.dpad_up) {
+                cargoGrabber.lower(0.3);
+            }
+            else{
+                cargoGrabber.stop();
+            }
+                //cargoGrabber.liftByEncoder(LEVEL_1);
+                /*
             } else if (gamepad2.dpad_up) {
                 cargoGrabber.liftByEncoder(LEVEL_2);
             } else if (gamepad2.dpad_left) {
                 cargoGrabber.liftByEncoder(LEVEL_3);
-            }
+            } */
 
             if (!gamepad1.a && !gamepad1.b && !gamepad1.y && !gamepad1.x ) {
                 mecanumDrivetrain.stop();
@@ -120,7 +132,7 @@ public class TestTeleOp extends LinearOpMode {
                 */
                 //mecanumDrivetrain.backwardByTime(this,AUTONOMOUS_SPEED,0.5);
                 //mecanumDrivetrain.driveByDistance(14, MecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED);
-                mecanumDrivetrain.driveByGyro(8, MecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
+                mecanumDrivetrain.driveByGyro(15, MecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             }else {
                 //hardwareStore.backLeft.setPower(0);
             }
@@ -139,7 +151,7 @@ public class TestTeleOp extends LinearOpMode {
 
                  */
 
-                mecanumDrivetrain.driveByGyro(8, MecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+                mecanumDrivetrain.driveByGyro(15, MecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
                //mecanumDrivetrain.driveByDistance(14, MecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED);
                //mecanumDrivetrain.forwardByTime(this,AUTONOMOUS_SPEED,0.5);
 
@@ -160,7 +172,7 @@ public class TestTeleOp extends LinearOpMode {
 
                  */
                 //mecanumDrivetrain.strafeRightByTime(this, AUTONOMOUS_SPEED, 0.5);
-                mecanumDrivetrain.driveByGyro(8, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
+                mecanumDrivetrain.driveByGyro(15, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
                 //mecanumDrivetrain.driveByDistance(14, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED);
             }else {
                 //hardwareStore.frontLeft.setPower(0);
@@ -181,11 +193,26 @@ public class TestTeleOp extends LinearOpMode {
 
                  */
                 //mecanumDrivetrain.strafeLeftByTime(this, AUTONOMOUS_SPEED, 0.5);
-                mecanumDrivetrain.driveByGyro(8, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
+                mecanumDrivetrain.driveByGyro(15, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
                 //mecanumDrivetrain.driveByDistance(14, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED);
             }else {
                 //hardwareStore.frontRight.setPower(0);
             }
+            if (gamepad1.dpad_left) {
+                mecanumDrivetrain.gyroTurn(-90, AUTONOMOUS_SPEED, this);
+            }
+            if (gamepad1.dpad_right) {
+                mecanumDrivetrain.gyroTurn(90, AUTONOMOUS_SPEED, this);
+            }
+
+            if (gamepad1.dpad_up) {
+                mecanumDrivetrain.gyroTurn(180, AUTONOMOUS_SPEED, this);
+            }
+            if (gamepad1.dpad_down) {
+                mecanumDrivetrain.gyroTurn(360, AUTONOMOUS_SPEED, this);
+            }
+
+
         }
 
 

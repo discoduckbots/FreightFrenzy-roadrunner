@@ -19,6 +19,7 @@ public class CargoGrabber {
         this.cargoGrabber = wobbleGrabber;
         cargoMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         cargoMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        cargoMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
     public void drop(LinearOpMode opmode) {
@@ -27,6 +28,11 @@ public class CargoGrabber {
         cargoMotor.setPower(0);
         release();
     }
+
+    public void print() {
+        Log.d("ftc", "cargoMotor " + cargoMotor.getCurrentPosition());
+    }
+
     public void dropByEncoder(int revolutions){
         cargoMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -68,13 +74,16 @@ public class CargoGrabber {
 
     public void liftByEncoder(int revolutions){
         cargoMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        cargoMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         cargoMotor.setTargetPosition(cargoMotor.getCurrentPosition() + revolutions);
 
-        while (cargoMotor.getTargetPosition() > cargoMotor.getCurrentPosition()){
+       /* while (cargoMotor.getTargetPosition() > cargoMotor.getCurrentPosition()){
             cargoMotor.setPower(1.0);
-        }
+        }*/
+        cargoMotor.setPower(1.0);
+        while(cargoMotor.isBusy()) {
 
+        }
         cargoMotor.setPower(0.0);
 
     }
@@ -118,9 +127,12 @@ public class CargoGrabber {
 
     }
 
-    public void print(Telemetry telemetry) {
-        telemetry.addData("Motor Position: ", cargoMotor.getCurrentPosition());
-        Log.d("FTC", "motor position " + cargoMotor.getCurrentPosition());
-        telemetry.update();
+    public void open() {
+        cargoGrabber.setDirection(Servo.Direction.REVERSE);
+        cargoGrabber.setPosition(1);
+    }
+
+    public double printServoValue(){
+        return cargoGrabber.getPosition();
     }
 }

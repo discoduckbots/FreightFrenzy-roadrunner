@@ -15,6 +15,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class HardwareStore {
     private MecanumDrivetrain mecanumDrivetrain;
     private Intake intake;
+    private FFIntake ffIntake;
     private CarouselSpinner carouselSpinner;
     private CargoGrabber cargoGrabber;
     private Shooter shooter;
@@ -29,6 +30,7 @@ public class HardwareStore {
     public DcMotorEx frontRight ;
     public DcMotorEx backRight ;
     public DcMotorEx backLeft ;
+    public DcMotor intakeMotor;
     public DcMotorEx carouselMotor;
     public DcMotor cargoMotor;
     public Servo cargoServo;
@@ -39,6 +41,7 @@ public class HardwareStore {
          frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
          backRight = hardwareMap.get(DcMotorEx.class, "backRight");
          backLeft = hardwareMap.get(DcMotorEx.class, "backLeft");
+         intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
          carouselMotor = hardwareMap.get(DcMotorEx.class, "carouselMotor");
          cargoMotor = hardwareMap.get(DcMotor.class, "cargoMotor");
          cargoServo = hardwareMap.get(Servo.class, "cargoServo");
@@ -49,6 +52,7 @@ public class HardwareStore {
         
         carouselSpinner = new CarouselSpinner(carouselMotor, opMode);
         cargoGrabber = new CargoGrabber(cargoMotor, cargoServo);
+        ffIntake = new FFIntake(intakeMotor, opMode);
        // DcMotorEx intakeMotor = hardwareMap.get(DcMotorEx.class, "intake");
         //intakePusher = hardwareMap.get(Servo.class, "intakePusher");
        /* intake = new Intake(intakeMotor, intakePusher);
@@ -112,6 +116,8 @@ public class HardwareStore {
     public CarouselSpinner getCarouselSpinner() {
         return carouselSpinner;
     }
+
+    public FFIntake getFFIntake() { return ffIntake; }
 
     public CargoGrabber getCargoGrabber() { return cargoGrabber; }
 

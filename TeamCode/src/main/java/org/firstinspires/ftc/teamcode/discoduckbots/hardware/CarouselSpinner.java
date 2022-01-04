@@ -14,7 +14,7 @@ public class CarouselSpinner {
     private static final double MAX_ROTATIONS_PER_SECOND = 100;
     private static final double ENCODER_CYCLES_PER_ROTATION = 28;
 
-    private static final double POWER = .8;
+    private static final double POWER = .02;
 
 
 
@@ -40,7 +40,7 @@ public class CarouselSpinner {
         stop();
     }
     public void start() {
-        carouselMotor.setPower(.6);
+        carouselMotor.setPower(POWER);
     }
     public void setForward() {
         carouselMotor.setDirection(DcMotorSimple.Direction.FORWARD);

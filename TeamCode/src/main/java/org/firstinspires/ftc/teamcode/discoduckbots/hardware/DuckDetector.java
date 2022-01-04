@@ -14,7 +14,8 @@ public class DuckDetector {
     }
 
     public boolean isDuckPresent(int distanceSensorNum) {
-
+        return true;
+        /*
         double distance = distanceSensor.getDistance(DistanceUnit.CM);
         Log.d("FTC", "Distance : " + distance);
         int maxValue = 5;
@@ -27,6 +28,6 @@ public class DuckDetector {
             return true;
         }else {
             return false;
-        }
+        }*/
     }
 }

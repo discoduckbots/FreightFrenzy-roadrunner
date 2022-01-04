@@ -27,25 +27,19 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.discoduckbots.opmode;
+package org.firstinspires.ftc.teamcode.discoduckbots.opmode.poc;
+
+import android.util.Log;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.DuckDetector;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.HardwareStore;
-import org.firstinspires.ftc.teamcode.discoduckbots.hardware.Intake;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.MecanumDrivetrain;
-import org.firstinspires.ftc.teamcode.discoduckbots.hardware.Shooter;
-import org.firstinspires.ftc.teamcode.discoduckbots.hardware.WobbleMover;
-
 
 
 /**
@@ -61,166 +55,44 @@ import org.firstinspires.ftc.teamcode.discoduckbots.hardware.WobbleMover;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Test mc OpMode", group="Linear Opmode")
-public class TestTeleOp extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Test New Arm", group="Linear Opmode")
+public class TestFFNewArm extends LinearOpMode {
 
   //  private static final double THROTTLE = 0.45;
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private MecanumDrivetrain mecanumDrivetrain = null;
-    /* private Intake intake = null;
-    private Shooter shooter = null;
-    private WobbleMover wobbleMover = null;
-    private TouchSensor touchSensor = null;
-    private ColorSensor colorSensor = null; */
+
     private static final double AUTONOMOUS_SPEED = 0.4;
-    private static final int LEVEL_1 = 3200;
-    private static final int LEVEL_2 = 4500;
-    private static final int LEVEL_3 = 5200;
+
     @Override
     public void runOpMode() {
-        HardwareStore hardwareStore = new HardwareStore(hardwareMap, telemetry, this);
-        mecanumDrivetrain = hardwareStore.getMecanumDrivetrain();
-        CargoGrabber cargoGrabber = hardwareStore.getCargoGrabber();
-      /*   intake = hardwareStore.getIntake();
-        shooter = hardwareStore.getShooter();
-        wobbleMover = hardwareStore.getWobbleMover();
-        touchSensor = hardwareStore.getTouchSensor();
-        colorSensor = hardwareStore.getColorSensor(); */
+
+
+        CRServo servo = hardwareMap.get(CRServo.class, "cargoServo");
+
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        DuckDetector duckDetector = new DuckDetector(hardwareStore.getDistanceSensor2());
-        while (opModeIsActive()) {
-            duckDetector.isDuckPresent(2);
-            if (gamepad2.dpad_down) {
-                cargoGrabber.liftByEncoder(LEVEL_1);
-            } else if (gamepad2.dpad_up) {
-                cargoGrabber.liftByEncoder(LEVEL_2);
-            } else if (gamepad2.dpad_left) {
-                cargoGrabber.liftByEncoder(LEVEL_3);
-            }
 
-            if (!gamepad1.a && !gamepad1.b && !gamepad1.y && !gamepad1.x ) {
-                mecanumDrivetrain.stop();
-                continue;
-            }
-            if (gamepad1.a) {
-               /* hardwareStore.backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
-                hardwareStore.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                hardwareStore.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                hardwareStore.backLeft.setPower(AUTONOMOUS_SPEED);
-                double time = System.nanoTime();
-                while (System.nanoTime() - time < 3000000000.0) {
-                    //
-                }
-                telemetry.addData("BL Encoder: " , hardwareStore.backLeft.getCurrentPosition());
-                telemetry.update();
-                */
-                //mecanumDrivetrain.backwardByTime(this,AUTONOMOUS_SPEED,0.5);
-                //mecanumDrivetrain.driveByDistance(14, MecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED);
-                mecanumDrivetrain.driveByGyro(8, MecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
-            }else {
-                //hardwareStore.backLeft.setPower(0);
-            }
+        while (opModeIsActive()) {
+           // servo.setDirection(Servo.Direction.FORWARD);
 
             if (gamepad1.y) {
-                /*hardwareStore.backRight.setDirection(DcMotorSimple.Direction.FORWARD);
-                hardwareStore.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                hardwareStore.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                hardwareStore.backRight.setPower(AUTONOMOUS_SPEED);
-                double time = System.nanoTime();
-                while (System.nanoTime() - time < 3000000000.0) {
-                    //
-                }
-                telemetry.addData("BR Encoder: " , hardwareStore.backRight.getCurrentPosition());
-                telemetry.update();
 
-                 */
-
-                mecanumDrivetrain.driveByGyro(8, MecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
-               //mecanumDrivetrain.driveByDistance(14, MecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED);
-               //mecanumDrivetrain.forwardByTime(this,AUTONOMOUS_SPEED,0.5);
-
-            }else {
-                //hardwareStore.backRight.setPower(0);
-            }
-            if (gamepad1.b) {
-                /*hardwareStore.frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
-                hardwareStore.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                hardwareStore.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                hardwareStore.frontLeft.setPower(AUTONOMOUS_SPEED);
-                double time = System.nanoTime();
-                while (System.nanoTime() - time < 3000000000.0) {
-                    //
-                }
-                telemetry.addData("FL Encoder: " , hardwareStore.frontLeft.getCurrentPosition());
-                telemetry.update();
-
-                 */
-                //mecanumDrivetrain.strafeRightByTime(this, AUTONOMOUS_SPEED, 0.5);
-                mecanumDrivetrain.driveByGyro(8, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
-                //mecanumDrivetrain.driveByDistance(14, MecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED);
-            }else {
-                //hardwareStore.frontLeft.setPower(0);
-            }
-
-            if (gamepad1.x) {
-                /*
-                hardwareStore.frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
-                hardwareStore.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                hardwareStore.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                hardwareStore.frontRight.setPower(AUTONOMOUS_SPEED);
-                double time = System.nanoTime();
-                while (System.nanoTime() - time < 3000000000.0) {
-                    //
-                }
-                telemetry.addData("FR Encoder: " , hardwareStore.frontRight.getCurrentPosition());
-                telemetry.update();
-
-                 */
-                //mecanumDrivetrain.strafeLeftByTime(this, AUTONOMOUS_SPEED, 0.5);
-                mecanumDrivetrain.driveByGyro(8, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
-                //mecanumDrivetrain.driveByDistance(14, MecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED);
-            }else {
-                //hardwareStore.frontRight.setPower(0);
+                Log.d("FTC", "gamepad.y");
+               servo.setPower(1);
+            }else if (gamepad1.a){
+                Log.d("FTC", "gamepad.a");
+                servo.setPower(-1);
+            } else {
+                servo.setPower(0);
             }
         }
 
-
-
-
-
-
-
-
-           /* if (gamepad1.b){
-                wobbleMover.grabAndLiftByEncoder(6250, this);
-            }
-
-            while ( touchSensor.isPressed()) {
-                intake.intake();
-            }
-
-            colorSensor.blue();
-            colorSensor.red();
-            colorSensor.green();
-
-            telemetry.addData("Red", colorSensor.red());
-            telemetry.addData("BLue", colorSensor.blue());
-            telemetry.addData("Green", colorSensor.green());
-            telemetry.update();
-        } */
-
-        telemetry.addData("MecanumDrivetrainTeleOp", "Stopping");
-
-        shutDown();
     }
 
     private void shutDown(){
-        mecanumDrivetrain.stop();
-        //intake.stop();
-        //shooter.stop();
+
     }
 }
