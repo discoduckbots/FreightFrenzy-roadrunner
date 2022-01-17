@@ -10,7 +10,7 @@ public class FFIntake {
     private  DcMotor intakeMotor;
     private  LinearOpMode opMode;
 
-    private static final double POWER = .5;
+    private static final double POWER = .6;
 
 
 

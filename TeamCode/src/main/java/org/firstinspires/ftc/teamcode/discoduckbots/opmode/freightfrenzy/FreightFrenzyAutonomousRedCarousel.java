@@ -149,13 +149,14 @@ public class FreightFrenzyAutonomousRedCarousel extends LinearOpMode {
             //cargoGrabber.grab();
             //sleep(300);
            //mecanumDrivetrain.driveByGyro(6, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
-          mecanumDrivetrain.strafeLeftByTime(this, .3, 1);
-           sleep(300);
-           mecanumDrivetrain.backwardByTime(this, .3, .25);
-           sleep(300);
-           carouselSpinner.getOneDuckInAutonomous();
-           sleep(300);
-           mecanumDrivetrain.driveByGyro(6, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+            sleep(300);
+            mecanumDrivetrain.driveByGyro(6, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
+            sleep(300);
+            mecanumDrivetrain.driveByGyro( 19 ,mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+            sleep(1000);
+            carouselSpinner.getOneDuckInAutonomous2();
+            sleep(300);
+            mecanumDrivetrain.driveByGyro(31, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
             /* mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
             //tensorflow
             sleep(300);

@@ -151,7 +151,7 @@ public class FreightFrenzyAutonomousBluePark extends LinearOpMode {
             sleep(300);
             //cargoGrabber.grab();
             sleep(300);
-            mecanumDrivetrain.driveByGyro(16, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
+            mecanumDrivetrain.driveByGyro(30, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
 
             /*mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
             mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);

@@ -124,7 +124,7 @@ public class FreightFrenzyAutonomousBlueBlockCarousel extends LinearOpMode {
         HardwareStore hardwareStore = new HardwareStore(hardwareMap, telemetry, this);
         mecanumDrivetrain = hardwareStore.getMecanumDrivetrain();
         cargoGrabber = hardwareStore.getCargoGrabber();
-        DuckDetector duckDetector = new DuckDetector(hardwareStore.getDistanceSensor());
+        DuckDetector duckDetector = new DuckDetector(hardwareStore.getDistanceSensor(), hardwareStore.getDistanceSensor2());
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         //initVuforia();
@@ -165,6 +165,7 @@ public class FreightFrenzyAutonomousBlueBlockCarousel extends LinearOpMode {
                     double distance_to_strafe = 12;
                     double forward_distance = 1.2;
             Log.d("FTC", "Checking for duck 1");
+            /*
                     if (!duckDetector.isDuckPresent(1)) {
                         Log.d("FTC", "1st duck not present");
                         mecanumDrivetrain.driveByGyro(4.5, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 0);
@@ -186,6 +187,8 @@ public class FreightFrenzyAutonomousBlueBlockCarousel extends LinearOpMode {
                         forward_distance = 2;
                         distance_to_strafe = 12.5;
                     }
+
+             */
             Log.d("FTC", "level " + level + " distance to strafe " + distance_to_strafe);
                     cargoGrabber.liftByEncoder(level);
                     sleep(1000);

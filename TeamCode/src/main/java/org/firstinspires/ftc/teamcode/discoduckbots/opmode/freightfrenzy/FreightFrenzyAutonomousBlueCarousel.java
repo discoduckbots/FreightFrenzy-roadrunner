@@ -151,17 +151,17 @@ public class FreightFrenzyAutonomousBlueCarousel extends LinearOpMode {
 
             //tensorflow
             sleep(300);
-            cargoGrabber.grab();
+
             sleep(300);
             mecanumDrivetrain.driveByGyro(0.5, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             sleep(300);
-            mecanumDrivetrain.driveByGyro( 2.5,mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 0);
+            mecanumDrivetrain.driveByGyro( 16.5,mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 0);
             sleep(1000);
-            carouselSpinner.getOneDuckInAutonomous2();
+            carouselSpinner.getOneDuckInAutonomous();
             sleep(300);
-            mecanumDrivetrain.driveByGyro(11, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
-            /*mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
-            mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
+            mecanumDrivetrain.driveByGyro(29, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
+            mecanumDrivetrain.driveByGyro(4, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
+            /*mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             //drop cube
             mecanumDrivetrain.driveByGyro(18, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED, 0);
             mecanumDrivetrain.driveByGyro(5, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);

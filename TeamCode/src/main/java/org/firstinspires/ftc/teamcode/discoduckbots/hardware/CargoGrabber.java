@@ -23,7 +23,7 @@ public class CargoGrabber {
 
     }
     public void drop(LinearOpMode opmode) {
-        cargoMotor.setPower(-1.0);
+        cargoMotor.setPower(-0.5);
         opmode.sleep(2000);
         cargoMotor.setPower(0);
         release();
@@ -35,11 +35,12 @@ public class CargoGrabber {
 
     public void dropByEncoder(int revolutions){
         cargoMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         cargoMotor.setTargetPosition(cargoMotor.getCurrentPosition() + revolutions);
+        cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
 
         while (cargoMotor.getTargetPosition() > cargoMotor.getCurrentPosition()){
-            cargoMotor.setPower(1.0);
+            cargoMotor.setPower(0.5);
         }
         cargoMotor.setPower(0.0);
         release();
@@ -47,11 +48,12 @@ public class CargoGrabber {
 
     public void lowerByEncoder(int revolutions){
         cargoMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         cargoMotor.setTargetPosition(cargoMotor.getCurrentPosition() + revolutions);
+        cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
 
         while (cargoMotor.getTargetPosition() > cargoMotor.getCurrentPosition()){
-            cargoMotor.setPower(1.0);
+            cargoMotor.setPower(0.5);
         }
         cargoMotor.setPower(0.0);
     }
@@ -65,7 +67,7 @@ public class CargoGrabber {
         cargoMotor.setTargetPosition(cargoMotor.getCurrentPosition() + revolutions);
 
         while (cargoMotor.getTargetPosition() > cargoMotor.getCurrentPosition()){
-            cargoMotor.setPower(1.0);
+            cargoMotor.setPower(0.5);
         }
 
         cargoMotor.setPower(0.0);
@@ -73,32 +75,36 @@ public class CargoGrabber {
     }
 
     public void liftByEncoder(int revolutions){
+
         cargoMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        cargoMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         cargoMotor.setTargetPosition(cargoMotor.getCurrentPosition() + revolutions);
-
-       /* while (cargoMotor.getTargetPosition() > cargoMotor.getCurrentPosition()){
-            cargoMotor.setPower(1.0);
-        }*/
-        cargoMotor.setPower(1.0);
-        while(cargoMotor.isBusy()) {
-
+        //cargoMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        cargoMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //cargoMotor.setPower(0.5);
+        while (cargoMotor.getTargetPosition() > cargoMotor.getCurrentPosition()){
+            cargoMotor.setPower(0.5);
+            Log.d("FTC-Arm", "c: " +
+                    cargoMotor.getCurrentPosition() + " t " + cargoMotor.getTargetPosition());
         }
+        //cargoMotor.setPower(0.5);
+       /* while(cargoMotor.isBusy()) {
+
+        }*/
         cargoMotor.setPower(0.0);
 
     }
 
     public void liftInch(LinearOpMode opmode) {
-        cargoMotor.setPower(1.0);
+        cargoMotor.setPower(0.5);
         opmode.sleep(325);
         cargoMotor.setPower(0);
     }
     public void dropLift(LinearOpMode opmode) {
-        cargoMotor.setPower(-1.0);
+        cargoMotor.setPower(-0.5);
         opmode.sleep(2000);
         cargoMotor.setPower(0);
         release();
-        cargoMotor.setPower(1.0);
+        cargoMotor.setPower(0.5);
         opmode.sleep(1000);
         cargoMotor.setPower(0);
     }
@@ -123,7 +129,7 @@ public class CargoGrabber {
 
     public void release() {
         cargoGrabber.setDirection(Servo.Direction.REVERSE);
-        cargoGrabber.setPosition(0.4);
+        cargoGrabber.setPosition(0.5);
 
     }
 

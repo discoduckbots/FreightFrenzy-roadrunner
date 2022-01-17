@@ -38,6 +38,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CarouselSpinner;
+import org.firstinspires.ftc.teamcode.discoduckbots.hardware.DuckDetector;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.FFIntake;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.HardwareStore;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.Intake;
@@ -84,13 +85,15 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         shooter = hardwareStore.getShooter();
         wobbleMover = hardwareStore.getWobbleMover();
         ffIntake = hardwareStore.getFFIntake();
-
+        DuckDetector duckDetector = new DuckDetector(hardwareStore.getDistanceSensor(),
+                hardwareStore.getDistanceSensor2());
 
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
         while (opModeIsActive()) {
+            duckDetector.print();
             //telemetry.addData("Pusher Servo Position: ", shooter.getPusherServo().getPosition());
             //telemetry.update();
             cargoGrabber.print();
@@ -128,17 +131,17 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.dpad_up) {
-                cargoGrabber.lower(.6);
+                cargoGrabber.lift(1.0);
             } else if (gamepad2.dpad_down) {
-                cargoGrabber.lift(.6);
+                cargoGrabber.lower(1.0);
             } else {
                 cargoGrabber.stop();
             }
 
 
-            telemetry.addData("servo position: ", cargoGrabber.printServoValue());
-            Log.d("FTC", "servo position " + cargoGrabber.printServoValue());
-            telemetry.update();
+           // telemetry.addData("servo position: ", cargoGrabber.printServoValue());
+           // Log.d("FTC", "servo position " + cargoGrabber.printServoValue());
+           // telemetry.update();
 
 /*
             if (gamepad1.y) {

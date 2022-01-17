@@ -72,9 +72,9 @@ public class FreightFrenzyAutonomousBlueBlockCarouselPark extends LinearOpMode {
     private static final double STRAFE_SPEED = 0.35;
     private static final double ROTATION_SPEED = 0.4;
     private static final int WOBBLE_GRABBER_REVOLUTIONS = 6250;
-    private static final int LEVEL_1 = 0; //3230
-    private static final int LEVEL_2 = -3700; //4485
-    private static final int LEVEL_3 = 0; //5205
+    private static final int LEVEL_1 = 1400; //3230
+    private static final int LEVEL_2 = 950; //4485
+    private static final int LEVEL_3 = 500; //5205
 
 
   /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
@@ -129,7 +129,8 @@ public class FreightFrenzyAutonomousBlueBlockCarouselPark extends LinearOpMode {
         mecanumDrivetrain = hardwareStore.getMecanumDrivetrain();
         cargoGrabber = hardwareStore.getCargoGrabber();
         carouselSpinner = hardwareStore.getCarouselSpinner();
-        DuckDetector duckDetector = new DuckDetector(hardwareStore.getDistanceSensor());
+        DuckDetector duckDetector = new DuckDetector(hardwareStore.getDistanceSensor(),
+                hardwareStore.getDistanceSensor2());
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         //initVuforia();
@@ -168,7 +169,7 @@ public class FreightFrenzyAutonomousBlueBlockCarouselPark extends LinearOpMode {
                     double distance_to_strafe = 12;
                     double forward_distance = 1.2;
             Log.d("FTC", "Checking for duck 1");
-                    if (!duckDetector.isDuckPresent(1)) {
+                    /*if (!duckDetector.isDuckPresent(1)) {
                         Log.d("FTC", "1st duck not present");
                         mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 0);
                         sleep(1500);
@@ -189,6 +190,8 @@ public class FreightFrenzyAutonomousBlueBlockCarouselPark extends LinearOpMode {
                         distance_to_strafe = 19;
                         forward_distance = 4;
                     }
+                    */
+
             Log.d("FTC", "level " + level + " distance to strafe " + distance_to_strafe);
                     cargoGrabber.liftByEncoder(level);
                     sleep(1000);

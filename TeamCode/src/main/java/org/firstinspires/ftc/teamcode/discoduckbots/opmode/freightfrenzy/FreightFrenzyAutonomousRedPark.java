@@ -152,7 +152,7 @@ public class FreightFrenzyAutonomousRedPark extends LinearOpMode {
         if (opModeIsActive()) {
             cargoGrabber.grab();
             sleep(300);
-           mecanumDrivetrain.driveByGyro(16, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+           mecanumDrivetrain.driveByGyro(30, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
 
             /* mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
             //tensorflow

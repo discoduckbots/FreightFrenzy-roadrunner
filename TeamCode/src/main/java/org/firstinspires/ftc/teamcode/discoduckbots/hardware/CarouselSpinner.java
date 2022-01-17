@@ -14,7 +14,7 @@ public class CarouselSpinner {
     private static final double MAX_ROTATIONS_PER_SECOND = 100;
     private static final double ENCODER_CYCLES_PER_ROTATION = 28;
 
-    private static final double POWER = .02;
+    private static final double POWER = 1;
 
 
 

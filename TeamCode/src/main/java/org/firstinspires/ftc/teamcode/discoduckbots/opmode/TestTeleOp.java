@@ -75,9 +75,9 @@ public class TestTeleOp extends LinearOpMode {
     private TouchSensor touchSensor = null;
     private ColorSensor colorSensor = null; */
     private static final double AUTONOMOUS_SPEED = 0.6;
-   //private static final int LEVEL_1 = 3200;
-    //private static final int LEVEL_2 = 4500;
-    //private static final int LEVEL_3 = 5200;
+   private static final int LEVEL_1 = 3176;
+   private static final int LEVEL_2 = 2111;
+   private static final int LEVEL_3 = 1406;
     @Override
     public void runOpMode() {
         HardwareStore hardwareStore = new HardwareStore(hardwareMap, telemetry, this);
@@ -97,6 +97,7 @@ public class TestTeleOp extends LinearOpMode {
            // cargoGrabber.print(telemetry);
 
             //duckDetector.isDuckPresent(2);
+            /*
             if (gamepad2.dpad_down) {
                 cargoGrabber.lift(0.3);
             }
@@ -105,14 +106,16 @@ public class TestTeleOp extends LinearOpMode {
             }
             else{
                 cargoGrabber.stop();
-            }
-                //cargoGrabber.liftByEncoder(LEVEL_1);
-                /*
+            }*/
+            if (gamepad2.dpad_down) {
+
+                cargoGrabber.liftByEncoder(LEVEL_1);
+
             } else if (gamepad2.dpad_up) {
                 cargoGrabber.liftByEncoder(LEVEL_2);
             } else if (gamepad2.dpad_left) {
                 cargoGrabber.liftByEncoder(LEVEL_3);
-            } */
+            }
 
             if (!gamepad1.a && !gamepad1.b && !gamepad1.y && !gamepad1.x ) {
                 mecanumDrivetrain.stop();

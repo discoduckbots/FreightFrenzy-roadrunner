@@ -6,16 +6,31 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-public class DuckDetector {
-    DistanceSensor distanceSensor;
+import java.util.logging.Level;
 
+public class DuckDetector {
+    DistanceSensor distanceSensor1;
+    DistanceSensor distanceSensor2;
+    int SENSOR1 = 1;
+    int SENSOR2 = 2;
+    static public int LEVEL1 = 1406;
+    static public int LEVEL2 = 2100;
+    static public int LEVEL3 = 3176;
+
+    double SENSOR1_MAX = 15;
+    double SENSOR2_MAX = 5;
+    public DuckDetector(DistanceSensor sensor1, DistanceSensor sensor2) {
+
+        distanceSensor1 = sensor1;
+        distanceSensor2 = sensor2;
+    }
+    /*
     public DuckDetector(DistanceSensor sensor) {
         distanceSensor = sensor;
     }
 
     public boolean isDuckPresent(int distanceSensorNum) {
-        return true;
-        /*
+
         double distance = distanceSensor.getDistance(DistanceUnit.CM);
         Log.d("FTC", "Distance : " + distance);
         int maxValue = 5;
@@ -28,6 +43,27 @@ public class DuckDetector {
             return true;
         }else {
             return false;
-        }*/
+        }
+    } */
+
+    public int getLevel() {
+        double distance1 = distanceSensor1.getDistance(DistanceUnit.CM);
+        double distance2 = distanceSensor2.getDistance(DistanceUnit.CM);
+        if(sensor1Detected(distance1) == false && sensor2Detected(distance2)== false){
+            return LEVEL1;
+        } else if (sensor1Detected(distance1) ==true && sensor2Detected(distance2)==false) {
+            return LEVEL2;
+        } else return LEVEL3;
+
+    }
+    public void print() {
+        Log.d("FTC-Duck", "distance1 " + distanceSensor1.getDistance(DistanceUnit.CM) +
+                " distance2 " + distanceSensor2.getDistance(DistanceUnit.CM));
+    }
+    private boolean sensor1Detected(double distance) {
+        return distance < SENSOR1_MAX;
+    }
+    private boolean sensor2Detected(double distance) {
+        return distance < SENSOR2_MAX;
     }
 }
