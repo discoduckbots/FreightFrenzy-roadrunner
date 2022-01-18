@@ -46,16 +46,37 @@ public class CargoGrabber {
         release();
     }
 
-    public void lowerByEncoder(int revolutions){
+    public void resetArm(){
+
         cargoMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        cargoMotor.setTargetPosition(cargoMotor.getCurrentPosition() + revolutions);
-        cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-
-        while (cargoMotor.getTargetPosition() > cargoMotor.getCurrentPosition()){
-            cargoMotor.setPower(0.5);
+        //cargoMotor.setTargetPosition(cargoMotor.getCurrentPosition() + revolutions);
+        //cargoMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        cargoMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        cargoMotor.setPower(0.5);
+        while ( cargoMotor.getCurrentPosition() > 5){
         }
         cargoMotor.setPower(0.0);
+
+    }
+
+    public void lowerByEncoder(int revolutions){
+
+        cargoMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        //cargoMotor.setTargetPosition(cargoMotor.getCurrentPosition() + revolutions);
+        //cargoMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //cargoMotor.setPower(0.5);
+        while (cargoMotor.getTargetPosition() > cargoMotor.getCurrentPosition()){
+            cargoMotor.setPower(0.5);
+            Log.d("FTC-Arm", "c: " +
+                    cargoMotor.getCurrentPosition() + " t " + cargoMotor.getTargetPosition());
+        }
+        //cargoMotor.setPower(0.5);
+       /* while(cargoMotor.isBusy()) {
+
+        }*/
+        cargoMotor.setPower(0.0);
+
     }
 
 
@@ -79,7 +100,7 @@ public class CargoGrabber {
         cargoMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         cargoMotor.setTargetPosition(cargoMotor.getCurrentPosition() + revolutions);
         //cargoMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        cargoMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //cargoMotor.setPower(0.5);
         while (cargoMotor.getTargetPosition() > cargoMotor.getCurrentPosition()){
             cargoMotor.setPower(0.5);
