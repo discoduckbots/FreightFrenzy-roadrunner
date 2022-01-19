@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode.discoduckbots.opmode.freightfrenzy;
 
 import android.util.Log;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -55,7 +56,8 @@ import org.firstinspires.ftc.teamcode.discoduckbots.sensors.TensorFlow;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFRedBlockPark", group = "drive")
+@Disabled
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFRedBlockParkDontUse", group = "drive")
 
 public class FreightFrenzyAutonomousRedBlockPark extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
@@ -158,7 +160,7 @@ public class FreightFrenzyAutonomousRedBlockPark extends LinearOpMode {
             sleep(300);
                     cargoGrabber.grab();
                     sleep(300);
-                    mecanumDrivetrain.driveByGyro(5.5, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+                    mecanumDrivetrain.driveByGyro(5, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
                     sleep(1500);
                     int level = LEVEL_1;
                     double distance_to_strafe = 18;
@@ -211,6 +213,7 @@ public class FreightFrenzyAutonomousRedBlockPark extends LinearOpMode {
                     //Log.d("FTC", "After hitting wall");
                     mecanumDrivetrain.driveByGyro(34, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,90);
                     sleep(300);
+            cargoGrabber.resetArm();
                     //mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED,0);
             /*mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
             mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);

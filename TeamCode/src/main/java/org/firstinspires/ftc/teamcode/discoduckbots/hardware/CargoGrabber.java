@@ -47,15 +47,19 @@ public class CargoGrabber {
     }
 
     public void resetArm(){
+        grab();
 
         cargoMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        //cargoMotor.setTargetPosition(cargoMotor.getCurrentPosition() + revolutions);
-        //cargoMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        cargoMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        cargoMotor.setTargetPosition(1800);
+        cargoMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         cargoMotor.setPower(0.5);
-        while ( cargoMotor.getCurrentPosition() > 5){
+
+
+        while(cargoMotor.isBusy()) {
+
         }
-        cargoMotor.setPower(0.0);
+        //cargoMotor.setPower(0.0);
 
     }
 
@@ -94,7 +98,7 @@ public class CargoGrabber {
         cargoMotor.setPower(0.0);
 
     }
-
+/*
     public void liftByEncoder(int revolutions){
 
         cargoMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -107,11 +111,24 @@ public class CargoGrabber {
             Log.d("FTC-Arm", "c: " +
                     cargoMotor.getCurrentPosition() + " t " + cargoMotor.getTargetPosition());
         }
-        //cargoMotor.setPower(0.5);
-       /* while(cargoMotor.isBusy()) {
 
-        }*/
         cargoMotor.setPower(0.0);
+
+    }
+*/
+    public void liftByEncoder(int revolutions){
+
+        cargoMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        cargoMotor.setTargetPosition(cargoMotor.getCurrentPosition() + revolutions);
+        cargoMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        cargoMotor.setPower(0.5);
+
+
+       while(cargoMotor.isBusy()) {
+
+        }
+        //cargoMotor.setPower(0.0);
 
     }
 

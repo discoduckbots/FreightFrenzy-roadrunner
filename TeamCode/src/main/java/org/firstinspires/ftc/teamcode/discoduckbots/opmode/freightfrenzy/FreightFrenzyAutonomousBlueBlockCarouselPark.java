@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode.discoduckbots.opmode.freightfrenzy;
 
 import android.util.Log;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -56,7 +57,8 @@ import org.firstinspires.ftc.teamcode.discoduckbots.sensors.TensorFlow;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFBlueBlockCarouselPark", group = "drive")
+@Disabled
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFBlueBlockCarouselPark2", group = "drive")
 
 public class FreightFrenzyAutonomousBlueBlockCarouselPark extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
