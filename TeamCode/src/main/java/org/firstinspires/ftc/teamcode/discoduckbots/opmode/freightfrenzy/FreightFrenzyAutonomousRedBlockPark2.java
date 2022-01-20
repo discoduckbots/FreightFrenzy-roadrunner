@@ -160,13 +160,13 @@ public class FreightFrenzyAutonomousRedBlockPark2 extends LinearOpMode {
             sleep(300);
             cargoGrabber.grab();
             sleep(300);
-            mecanumDrivetrain.driveByGyro(17, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
+            mecanumDrivetrain.driveByGyro(17.5, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             sleep(1500);
 
 
 
             Log.d("FTC", "Checking for ducks");
-            int level = duckDetector.getLevel();
+            int level = duckDetector.getLevelRed();
             Log.d("FTC", "level " + level);
             cargoGrabber.liftByEncoder(level);
             sleep(100);

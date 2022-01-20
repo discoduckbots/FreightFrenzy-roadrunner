@@ -45,7 +45,17 @@ public class DuckDetector {
             return false;
         }
     } */
+    public int getLevelRed() {
+        double distance1 = distanceSensor1.getDistance(DistanceUnit.CM);
+        double distance2 = distanceSensor2.getDistance(DistanceUnit.CM);
+        Log.d("FTC-Duck4" , "d1: " + distance1 + " d2: " + distance2);
+        if(sensor1Detected(distance1) == true && sensor2Detected(distance2)== false){
+            return LEVEL1;
+        } else if (sensor1Detected(distance1) ==false && sensor2Detected(distance2)==true) {
+            return LEVEL2;
+        } else return LEVEL3;
 
+    }
     public int getLevel() {
         double distance1 = distanceSensor1.getDistance(DistanceUnit.CM);
         double distance2 = distanceSensor2.getDistance(DistanceUnit.CM);

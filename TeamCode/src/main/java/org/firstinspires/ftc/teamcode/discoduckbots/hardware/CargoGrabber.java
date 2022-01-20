@@ -49,7 +49,7 @@ public class CargoGrabber {
     public void resetArm(){
         grab();
 
-        cargoMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+       /* cargoMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         cargoMotor.setTargetPosition(1800);
         cargoMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -58,7 +58,7 @@ public class CargoGrabber {
 
         while(cargoMotor.isBusy()) {
 
-        }
+        }*/
         //cargoMotor.setPower(0.0);
 
     }
