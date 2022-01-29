@@ -56,9 +56,9 @@ import org.firstinspires.ftc.teamcode.discoduckbots.sensors.TensorFlow;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFRedBlockCarouselPark", group = "drive")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFRedBlockCarouselParkStorage", group = "drive")
 
-public class FreightFrenzyAutonomousRedBlockCarouselPark extends LinearOpMode {
+public class FreightFrenzyAutonomousRedBlockCarouselParkStorage extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mecanumDrivetrain = null;
     private CargoGrabber cargoGrabber = null;
@@ -197,25 +197,27 @@ public class FreightFrenzyAutonomousRedBlockCarouselPark extends LinearOpMode {
             cargoGrabber.release();
             sleep(300);
             Log.d("FTC", "Drive back");
-            mecanumDrivetrain.driveByGyro(34, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 90);
+            mecanumDrivetrain.driveByGyro(36, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 90);
             sleep(300);
             //Log.d("FTC", "Strafing after lifting");
             Log.d("FTC", "Strafing left 1");
-            mecanumDrivetrain.driveByGyro(35, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 90);
-            sleep(300);
+            mecanumDrivetrain.driveByGyro(23, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 90);
+            /*sleep(200);
             Log.d("FTC", "Drive back");
             mecanumDrivetrain.driveByGyro(37, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 90);
-            sleep(300);
+            sleep(200);
             Log.d("FTC", "Strafing left 2");
             mecanumDrivetrain.driveByGyro(5, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 90);
             //sleep(300);
             Log.d("FTC", "Strafing left by time");
             // Don't know why this is actually strafing left
             mecanumDrivetrain.forwardByTime(this, AUTONOMOUS_SPEED, 0.7);
-            sleep(300);
+            sleep(200);
             Log.d("FTC", "All the way back ");
             mecanumDrivetrain.driveByGyro(64, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 90);
+            */
             cargoGrabber.resetArm();
+
             //sleep(1500);
             //Log.d("FTC", "Releasing freight");
             //cargoGrabber.release();

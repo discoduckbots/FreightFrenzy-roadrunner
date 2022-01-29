@@ -15,6 +15,7 @@ public class CarouselSpinner {
     private static final double ENCODER_CYCLES_PER_ROTATION = 28;
 
     private static final double POWER = 0.6;
+    private static final double AUTONOMOUS_POWER = 0.4;
 
 
 
@@ -35,8 +36,8 @@ public class CarouselSpinner {
     public void getOneDuckInAutonomous() {
         //carouselMotor.setVelocity(getVelocity(POWER));
         carouselMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        carouselMotor.setPower(POWER);
-        opMode.sleep(3000);
+        carouselMotor.setPower(AUTONOMOUS_POWER);
+        opMode.sleep(3250);
         stop();
     }
     public void start() {
@@ -57,8 +58,8 @@ public class CarouselSpinner {
 
     public void getOneDuckInAutonomous2() {
         carouselMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        carouselMotor.setPower(POWER);
-        opMode.sleep(3000);
+        carouselMotor.setPower(AUTONOMOUS_POWER);
+        opMode.sleep(3250);
         stop();
     }
 

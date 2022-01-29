@@ -113,7 +113,7 @@ public class TestTeleOp extends LinearOpMode {
 
             } else if (gamepad2.dpad_up) {
                 cargoGrabber.liftByEncoder(LEVEL_2);
-            } else if (gamepad2.dpad_left) {
+            } else if (gamepad2.dpad_right) {
                 cargoGrabber.liftByEncoder(LEVEL_3);
             }
 
@@ -201,18 +201,19 @@ public class TestTeleOp extends LinearOpMode {
             }else {
                 //hardwareStore.frontRight.setPower(0);
             }
-            if (gamepad1.dpad_left) {
-                mecanumDrivetrain.gyroTurn(-90, AUTONOMOUS_SPEED, this);
+            if (gamepad2.dpad_left) {
+                cargoGrabber.resetArm();
+                //mecanumDrivetrain.gyroTurn(-90, AUTONOMOUS_SPEED, this);
             }
             if (gamepad1.dpad_right) {
-                mecanumDrivetrain.gyroTurn(90, AUTONOMOUS_SPEED, this);
+               // mecanumDrivetrain.gyroTurn(90, AUTONOMOUS_SPEED, this);
             }
 
             if (gamepad1.dpad_up) {
-                mecanumDrivetrain.gyroTurn(180, AUTONOMOUS_SPEED, this);
+                //mecanumDrivetrain.gyroTurn(180, AUTONOMOUS_SPEED, this);
             }
             if (gamepad1.dpad_down) {
-                mecanumDrivetrain.gyroTurn(360, AUTONOMOUS_SPEED, this);
+                //mecanumDrivetrain.gyroTurn(360, AUTONOMOUS_SPEED, this);
             }
 
 

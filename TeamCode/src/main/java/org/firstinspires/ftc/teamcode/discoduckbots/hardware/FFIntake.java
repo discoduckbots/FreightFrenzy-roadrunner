@@ -10,8 +10,8 @@ public class FFIntake {
     private  DcMotor intakeMotor;
     private  LinearOpMode opMode;
 
-    private static final double POWER = .6;
-
+    private static final double POWER = 1;
+    private static final double OUTTAKE_POWER = 0.6;
 
 
     public FFIntake(DcMotor intakeMotor, LinearOpMode opMode) {
@@ -21,12 +21,12 @@ public class FFIntake {
     }
 
 
-    public void intake() {
+    public void outtake() {
         intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         intakeMotor.setPower(POWER);
     }
 
-    public void outtake(){
+    public void intake(){
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeMotor.setPower(POWER);
     }

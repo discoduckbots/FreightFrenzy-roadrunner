@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.discoduckbots.hardware;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -25,6 +26,7 @@ public class HardwareStore {
     private TouchSensor touchSensor = null;
     private DistanceSensor distanceSensor = null;
     private DistanceSensor distanceSensor2 = null;
+    private TouchSensor armStoppingSensor = null;
 
     public DcMotorEx frontLeft ;
     public DcMotorEx frontRight ;
@@ -35,6 +37,7 @@ public class HardwareStore {
     public DcMotor cargoMotor;
     public Servo cargoServo;
     public Servo intakePusher;
+    public RevBlinkinLedDriver ledDriver;
 
     public HardwareStore(HardwareMap hardwareMap, Telemetry telemetry, LinearOpMode opMode) {
          frontLeft = hardwareMap.get(DcMotorEx.class, "frontLeft");
@@ -47,6 +50,9 @@ public class HardwareStore {
          cargoServo = hardwareMap.get(Servo.class, "cargoServo");
          distanceSensor = hardwareMap.get(DistanceSensor.class, "distanceSensor");
         distanceSensor2 = hardwareMap.get(DistanceSensor.class, "distanceSensor2");
+        armStoppingSensor = hardwareMap.get(TouchSensor.class, "armSensor");
+        ledDriver = hardwareMap.get(RevBlinkinLedDriver.class, "led");
+        ledDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP1_2_SPARKLE_1_ON_2);
         //colorSensor = hardwareMap.get(ColorSensor.class, "sensor_color");
         //touchSensor = hardwareMap.get(TouchSensor.class, "sensor_touch");
         
@@ -109,7 +115,7 @@ public class HardwareStore {
         return colorSensor;
     }
 
-    public TouchSensor getTouchSensor() { return touchSensor; }
+    public TouchSensor getArmStoppingSensor() { return armStoppingSensor; }
     public DistanceSensor getDistanceSensor() { return distanceSensor; }
     public DistanceSensor getDistanceSensor2() { return distanceSensor2; }
 

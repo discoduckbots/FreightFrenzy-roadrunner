@@ -167,7 +167,7 @@ public class FreightFrenzyAutonomousBlueBlockCarouselPark2 extends LinearOpMode 
             //sleep(300);
             mecanumDrivetrain.driveByGyro(1, MecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             sleep(300);
-            mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 0);
+            mecanumDrivetrain.driveByGyro(3.5, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 0);
             sleep(300);
             carouselSpinner.getOneDuckInAutonomous2();
             //sleep(300);
@@ -186,6 +186,12 @@ public class FreightFrenzyAutonomousBlueBlockCarouselPark2 extends LinearOpMode 
             cargoGrabber.liftByEncoder(level);
             sleep(100);
             Log.d("FTC", "Strafing after lifting");
+
+
+                mecanumDrivetrain.driveByGyro(2.5, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+                sleep(300);
+
+
             mecanumDrivetrain.driveByGyro(32, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, STRAFE_SPEED, 0);
             sleep(1500);
             Log.d("FTC", "Releasing freight");
@@ -199,11 +205,12 @@ public class FreightFrenzyAutonomousBlueBlockCarouselPark2 extends LinearOpMode 
             Log.d("FTC", "Before turning");
             mecanumDrivetrain.gyroTurn(90, 0.45, this );
             sleep(500);
+            cargoGrabber.resetArm();
             Log.d("FTC", "Before hitting wall");
             mecanumDrivetrain.strafeLeftByTime(this, AUTONOMOUS_SPEED, 1.8);
             sleep(300);
             Log.d("FTC", "After hitting wall");
-            mecanumDrivetrain.driveByGyro(70, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,90);
+            mecanumDrivetrain.driveByGyro(65, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,90);
             sleep(300);
             //mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED,0);
             /*mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);

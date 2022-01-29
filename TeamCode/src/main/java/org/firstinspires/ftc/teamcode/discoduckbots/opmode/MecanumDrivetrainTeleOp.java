@@ -32,8 +32,6 @@ package org.firstinspires.ftc.teamcode.discoduckbots.opmode;
 import android.util.Log;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
@@ -93,6 +91,7 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+            cargoGrabber.stopIfNotBusy();
             duckDetector.print();
             //telemetry.addData("Pusher Servo Position: ", shooter.getPusherServo().getPosition());
             //telemetry.update();
@@ -113,10 +112,10 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
                 // intake.stop();
                 }
             if (gamepad1.x) {
-                ffIntake.intake();
+                ffIntake.outtake();
 
             } else if (gamepad1.y) {
-                ffIntake.outtake();
+                ffIntake.intake();
 
             } else {
                 ffIntake.stop();
@@ -132,60 +131,22 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
 
             if (gamepad2.dpad_up) {
                 cargoGrabber.lift(1.0);
-            } else if (gamepad2.dpad_down) {
+            } else if (gamepad2.dpad_down && !hardwareStore.getArmStoppingSensor().isPressed()) {
                 cargoGrabber.lower(1.0);
             } else {
+                if (hardwareStore.getArmStoppingSensor().isPressed()) {
+                    Log.d("FTC-ArmSensor", "arm sensor stopping arm");
+                }
                 cargoGrabber.stop();
             }
 
-
-           // telemetry.addData("servo position: ", cargoGrabber.printServoValue());
-           // Log.d("FTC", "servo position " + cargoGrabber.printServoValue());
-           // telemetry.update();
-
-/*
-            if (gamepad1.y) {
-                intake.pushRing();
-            } else if (gamepad1.x) {
-                intake.resetPusher();
+            if (gamepad2.a) {
+                cargoGrabber.resetArmAsync();
             }
 
-
-            if (gamepad2.right_trigger > 0) {
-                shooter.setPowerForHighGoal();
-            } else if (gamepad2.left_trigger > 0) {
-                shooter.setPowerForPowerShot();
+            if(gamepad2.x) {
+                cargoGrabber.stop();
             }
-
-            if (gamepad2.y) {
-                shooter.pushRing();
-            } else if (gamepad2.x) {
-                shooter.resetPusher();
-            }
-
-            if (gamepad2.dpad_down) {
-                wobbleMover.lower(1);
-            } else if (gamepad2.dpad_up) {
-                wobbleMover.lift(1);
-            } else {
-                wobbleMover.stop();
-            }
-
-            if (gamepad2.left_bumper) {
-
-                wobbleMover.grab();
-            }
-            if (gamepad2.right_bumper) {
-                wobbleMover.release();
-            }
-            if (gamepad1.left_trigger > 0) {
-                THROTTLE = .6;
-            }
-            if (gamepad1.right_trigger > 0) {
-                THROTTLE = .5;
-            }
-
-       */
         }
 
 

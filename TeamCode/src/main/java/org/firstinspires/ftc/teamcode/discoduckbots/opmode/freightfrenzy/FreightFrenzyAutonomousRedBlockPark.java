@@ -207,13 +207,14 @@ public class FreightFrenzyAutonomousRedBlockPark extends LinearOpMode {
                     //Log.d("FTC", "Before turning");
                     mecanumDrivetrain.gyroTurn(90, 0.3, this );
                     sleep(500);
+                    cargoGrabber.resetArm();
+                    sleep(200);
                     //Log.d("FTC", "Before hitting wall");
                     mecanumDrivetrain.strafeRightByTime(this, AUTONOMOUS_SPEED, 1.8);
                     sleep(300);
                     //Log.d("FTC", "After hitting wall");
                     mecanumDrivetrain.driveByGyro(34, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,90);
                     sleep(300);
-            cargoGrabber.resetArm();
                     //mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED,0);
             /*mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
             mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);

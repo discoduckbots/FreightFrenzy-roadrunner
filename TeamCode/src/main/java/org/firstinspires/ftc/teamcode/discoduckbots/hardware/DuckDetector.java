@@ -13,9 +13,9 @@ public class DuckDetector {
     DistanceSensor distanceSensor2;
     int SENSOR1 = 1;
     int SENSOR2 = 2;
-    static public int LEVEL1 = 2280;
-    static public int LEVEL2 = 3200;
-    static public int LEVEL3 = 4330;
+    static public int LEVEL1 = 1991;
+    static public int LEVEL2 = 2976;
+    static public int LEVEL3 = 4039;
 
     double SENSOR1_MAX = 15;
     double SENSOR2_MAX = 5;
@@ -65,8 +65,8 @@ public class DuckDetector {
         } else if (sensor1Detected(distance1) ==true && sensor2Detected(distance2)==false) {
             return LEVEL2;
         } else return LEVEL3;
-
     }
+
     public void print() {
         Log.d("FTC-Duck3", "distance1 " + distanceSensor1.getDistance(DistanceUnit.CM) +
                 " distance2 " + distanceSensor2.getDistance(DistanceUnit.CM));

@@ -46,20 +46,45 @@ public class CargoGrabber {
         release();
     }
 
-    public void resetArm(){
+    public void resetArm() {
+        resetArm(850);
+    }
+    public void resetArmTeleop() {
+        resetArm(0);
+    }
+
+    public void resetArmAsync() {
         grab();
 
-       /* cargoMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        cargoMotor.setTargetPosition(1800);
+        //cargoMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        cargoMotor.setTargetPosition(0);
         cargoMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        cargoMotor.setPower(0.5);
+        // cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        cargoMotor.setPower(-0.75);
+    }
+    public void stopIfNotBusy() {
+        if (!cargoMotor.isBusy()) {
+            Log.d("ftc", "cargoMotor stopping async ");
+            cargoMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            cargoMotor.setPower(0.0);
+        }
+    }
+    public void resetArm(int position){
+        grab();
+
+        //cargoMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        cargoMotor.setTargetPosition(position);
+        cargoMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+       // cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        cargoMotor.setPower(-0.75);
 
 
         while(cargoMotor.isBusy()) {
-
-        }*/
-        //cargoMotor.setPower(0.0);
+            Log.d("ftc", "cargoMotor in loop " + cargoMotor.getCurrentPosition());
+        }
+        Log.d("ftc", "cargoMotor out of loop ");
+        cargoMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        cargoMotor.setPower(0.0);
 
     }
 
