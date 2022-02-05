@@ -13,6 +13,7 @@ public class CargoGrabber {
 
     private DcMotor cargoMotor;
     private Servo cargoGrabber;
+    private boolean resetInProgress = false;
 
     public CargoGrabber(DcMotor wobbleMoverMotor, Servo wobbleGrabber) {
         this.cargoMotor = wobbleMoverMotor;
@@ -30,7 +31,7 @@ public class CargoGrabber {
     }
 
     public void print() {
-        Log.d("ftc", "cargoMotor " + cargoMotor.getCurrentPosition());
+        Log.d("ftc2", "cargoMotor " + cargoMotor.getCurrentPosition());
     }
 
     public void dropByEncoder(int revolutions){
@@ -53,21 +54,42 @@ public class CargoGrabber {
         resetArm(0);
     }
 
-    public void resetArmAsync() {
-        grab();
+    public void resetGrabberAsync() { resetArmAsync(850);}
+    public void resetGrabberAsyncTeleop() {
+        resetArmAsync(0);
+    }
 
-        //cargoMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        cargoMotor.setTargetPosition(0);
-        cargoMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        // cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        cargoMotor.setPower(-0.75);
+    public void resetArmAsync(int armPosition) {
+        if(!resetInProgress) {
+            resetInProgress = true;
+            grab();
+
+            //cargoMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+            cargoMotor.setTargetPosition(armPosition);
+            cargoMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            cargoMotor.setPower(-0.75);
+            Log.d("ftc-reset", "exiting resetArm");
+        } else {
+            Log.d("ftc-reset", "ignoring reset as in progress");
+        }
     }
     public void stopIfNotBusy() {
-        if (!cargoMotor.isBusy()) {
-            Log.d("ftc", "cargoMotor stopping async ");
-            cargoMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            cargoMotor.setPower(0.0);
+        Log.d("ftc-reset", "curr pos: " +  cargoMotor.getCurrentPosition());
+        if ( resetInProgress ) {
+            if (cargoMotor.getCurrentPosition() <= 0) {
+                Log.d("ftc-reset", "cargoMotor stopping async ");
+                cargoMotor.setPower(0.0);
+                cargoMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                resetInProgress = false;
+            } else {
+                Log.d("ftc-reset", "cargoMotor continuing power ");
+                //cargoMotor.setPower(-0.75);
+            }
+        } else {
+            cargoMotor.setPower(0);
         }
+
     }
     public void resetArm(int position){
         grab();
@@ -171,7 +193,9 @@ public class CargoGrabber {
         opmode.sleep(1000);
         cargoMotor.setPower(0);
     }
-
+    public void resetPositionAs0 () {
+        cargoMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
 
     public void lower(double speed) {
         cargoMotor.setPower(-1 * speed);
@@ -192,7 +216,7 @@ public class CargoGrabber {
 
     public void release() {
         cargoGrabber.setDirection(Servo.Direction.REVERSE);
-        cargoGrabber.setPosition(0.5);
+        cargoGrabber.setPosition(0.50);
 
     }
 

@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 
 public class HardwareStore {
     private MecanumDrivetrain mecanumDrivetrain;
@@ -27,6 +28,7 @@ public class HardwareStore {
     private DistanceSensor distanceSensor = null;
     private DistanceSensor distanceSensor2 = null;
     private TouchSensor armStoppingSensor = null;
+    private WebcamName webcamName = null;
 
     public DcMotorEx frontLeft ;
     public DcMotorEx frontRight ;
@@ -51,8 +53,10 @@ public class HardwareStore {
          distanceSensor = hardwareMap.get(DistanceSensor.class, "distanceSensor");
         distanceSensor2 = hardwareMap.get(DistanceSensor.class, "distanceSensor2");
         armStoppingSensor = hardwareMap.get(TouchSensor.class, "armSensor");
-        ledDriver = hardwareMap.get(RevBlinkinLedDriver.class, "led");
-        ledDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP1_2_SPARKLE_1_ON_2);
+        webcamName = hardwareMap.get(WebcamName.class, "webcam");
+       ledDriver = hardwareMap.get(RevBlinkinLedDriver.class, "led");
+        ledDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.YELLOW);
+
         //colorSensor = hardwareMap.get(ColorSensor.class, "sensor_color");
         //touchSensor = hardwareMap.get(TouchSensor.class, "sensor_touch");
         
@@ -126,5 +130,9 @@ public class HardwareStore {
     public FFIntake getFFIntake() { return ffIntake; }
 
     public CargoGrabber getCargoGrabber() { return cargoGrabber; }
+
+    public WebcamName getWebcamName() {return webcamName;}
+
+    public RevBlinkinLedDriver getLedDriver() { return ledDriver;}
 
 }

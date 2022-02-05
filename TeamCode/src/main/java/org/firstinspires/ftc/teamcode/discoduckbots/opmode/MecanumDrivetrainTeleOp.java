@@ -31,9 +31,12 @@ package org.firstinspires.ftc.teamcode.discoduckbots.opmode;
 
 import android.util.Log;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.discoduckbots.hardware.BlockDetector;
+import org.firstinspires.ftc.teamcode.discoduckbots.hardware.BlockDetectorListener;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CarouselSpinner;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.DuckDetector;
@@ -71,7 +74,8 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
     private Shooter shooter = null;
     private WobbleMover wobbleMover = null;
     private FFIntake ffIntake = null;
-
+    private BlockDetector blockDetector = null;
+    private RevBlinkinLedDriver ledDriver = null;
 
     @Override
     public void runOpMode() {
@@ -83,15 +87,21 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         shooter = hardwareStore.getShooter();
         wobbleMover = hardwareStore.getWobbleMover();
         ffIntake = hardwareStore.getFFIntake();
+        ledDriver = hardwareStore.getLedDriver();
         DuckDetector duckDetector = new DuckDetector(hardwareStore.getDistanceSensor(),
                 hardwareStore.getDistanceSensor2());
-
+        blockDetector = new BlockDetector(hardwareStore.getWebcamName(), hardwareMap, new BlockDetectorListener() {
+            @Override
+            public void onBlockDetected(int count) {
+                Log.d("ftc-opencv", "block detected " + count);
+                ledDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
+            }
+        });
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
         while (opModeIsActive()) {
-            cargoGrabber.stopIfNotBusy();
             duckDetector.print();
             //telemetry.addData("Pusher Servo Position: ", shooter.getPusherServo().getPosition());
             //telemetry.update();
@@ -125,8 +135,6 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
              cargoGrabber.grab();
             } else if (gamepad2.right_bumper) {
                 cargoGrabber.release();
-            }else if (gamepad2.a) {
-                cargoGrabber.open();
             }
 
             if (gamepad2.dpad_up) {
@@ -134,14 +142,16 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
             } else if (gamepad2.dpad_down && !hardwareStore.getArmStoppingSensor().isPressed()) {
                 cargoGrabber.lower(1.0);
             } else {
-                if (hardwareStore.getArmStoppingSensor().isPressed()) {
-                    Log.d("FTC-ArmSensor", "arm sensor stopping arm");
-                }
-                cargoGrabber.stop();
+                Log.d("FTC-ArmSensor", "arm sensor stopping arm");
+                cargoGrabber.stopIfNotBusy();
             }
 
             if (gamepad2.a) {
-                cargoGrabber.resetArmAsync();
+                cargoGrabber.resetGrabberAsyncTeleop();
+            }
+
+            if (gamepad2.b) {
+                cargoGrabber.resetPositionAs0();
             }
 
             if(gamepad2.x) {
