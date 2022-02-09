@@ -24,6 +24,7 @@ package org.firstinspires.ftc.teamcode.discoduckbots.opmode.poc;
 
 import android.util.Log;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -42,7 +43,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 import static org.opencv.imgproc.Imgproc.THRESH_BINARY;
 
-
+@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="OpenCv", group="Linear Opmode")
 public class OpenCvTest extends LinearOpMode
 {

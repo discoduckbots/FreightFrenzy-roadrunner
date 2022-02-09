@@ -7,8 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-
 public class CargoGrabber {
 
     private DcMotor cargoMotor;
@@ -47,14 +45,14 @@ public class CargoGrabber {
         release();
     }
 
-    public void resetArm() {
-        resetArm(850);
+    public void resetToLydiasFavoritePosition() {
+        resetToLydiasFavoritePosition(212);
     }
     public void resetArmTeleop() {
-        resetArm(0);
+        resetToLydiasFavoritePosition(0);
     }
 
-    public void resetGrabberAsync() { resetArmAsync(850);}
+    public void resetGrabberAsync() { resetArmAsync(212);}
     public void resetGrabberAsyncTeleop() {
         resetArmAsync(0);
     }
@@ -74,6 +72,20 @@ public class CargoGrabber {
             Log.d("ftc-reset", "ignoring reset as in progress");
         }
     }
+
+    public void liftByEncoderAsync(int revolutions) {
+        //if (!resetInProgress) {
+         //   resetInProgress = true;
+
+            cargoMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+            cargoMotor.setTargetPosition(cargoMotor.getCurrentPosition() + revolutions);
+            cargoMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //cargoMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            cargoMotor.setPower(0.5);
+        //}
+    }
+
+
     public void stopIfNotBusy() {
         Log.d("ftc-reset", "curr pos: " +  cargoMotor.getCurrentPosition());
         if ( resetInProgress ) {
@@ -91,7 +103,7 @@ public class CargoGrabber {
         }
 
     }
-    public void resetArm(int position){
+    public void resetToLydiasFavoritePosition(int position){
         grab();
 
         //cargoMotor.setDirection(DcMotorSimple.Direction.REVERSE);

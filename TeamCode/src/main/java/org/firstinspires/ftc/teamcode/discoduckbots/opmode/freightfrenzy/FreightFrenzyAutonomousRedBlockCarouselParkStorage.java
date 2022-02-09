@@ -216,7 +216,7 @@ public class FreightFrenzyAutonomousRedBlockCarouselParkStorage extends LinearOp
             Log.d("FTC", "All the way back ");
             mecanumDrivetrain.driveByGyro(64, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 90);
             */
-            cargoGrabber.resetArm();
+            cargoGrabber.resetToLydiasFavoritePosition();
 
             //sleep(1500);
             //Log.d("FTC", "Releasing freight");

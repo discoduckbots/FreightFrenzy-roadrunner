@@ -162,7 +162,6 @@ public class FreightFrenzyAutonomousBlueBlockCarouselPark extends LinearOpMode {
         if (opModeIsActive()) {
 
             //tensorflow
-            sleep(300);
             cargoGrabber.grab();
             sleep(300);
             mecanumDrivetrain.driveByGyro(18, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);

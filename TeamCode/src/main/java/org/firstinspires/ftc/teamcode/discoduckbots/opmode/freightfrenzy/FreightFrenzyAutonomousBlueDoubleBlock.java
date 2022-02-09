@@ -159,9 +159,8 @@ public class FreightFrenzyAutonomousBlueDoubleBlock extends LinearOpMode {
         if (opModeIsActive()) {
 
             //tensorflow
-            sleep(300);
             cargoGrabber.grab();
-            sleep(300);
+            sleep(150);
             mecanumDrivetrain.driveByGyro(18.5, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             sleep(500);
 
@@ -173,25 +172,25 @@ public class FreightFrenzyAutonomousBlueDoubleBlock extends LinearOpMode {
             sleep(100);
             Log.d("FTC", "Strafing after lifting");
             mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 0);
-            sleep(500);
+            sleep(300);
             Log.d("FTC", "Releasing freight");
             cargoGrabber.release();
-            sleep(500);
+            sleep(300);
             Log.d("FTC", "Before coming back");
            mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,0);
             sleep(300);
             cargoGrabber.resetGrabberAsync();
-            sleep(300);
-            cargoGrabber.release();
-            sleep(300);
+            //sleep(300);
             Log.d("FTC", "Before turning");
             mecanumDrivetrain.gyroTurn(90, 0.45, this );
             sleep(500);
+            cargoGrabber.release();
+            //sleep(300);
             Log.d("FTC", "Before hitting wall");
             mecanumDrivetrain.strafeLeftByTime(this, AUTONOMOUS_SPEED, 1.8);
             sleep(300);
             Log.d("FTC", "After hitting wall");
-            mecanumDrivetrain.driveByGyro(58, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,90);
+            mecanumDrivetrain.driveByGyro(60, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,90);
             sleep(300);
             ffIntake.intake();
             sleep(2000);
@@ -200,20 +199,20 @@ public class FreightFrenzyAutonomousBlueDoubleBlock extends LinearOpMode {
             ffIntake.outtake();
             sleep(1000);
             ffIntake.stop();
-            sleep(300);
+            //sleep(300);
             cargoGrabber.grab();
-            sleep(500);
-            cargoGrabber.liftByEncoder(DuckDetector.LEVEL3);
+            sleep(200);
+            cargoGrabber.liftByEncoderAsync(DuckDetector.LEVEL3);
             sleep(500);
             mecanumDrivetrain.driveByGyro(55, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 90);
             sleep(300);
             mecanumDrivetrain.gyroTurn(-90, AUTONOMOUS_SPEED, this);
             sleep(150);
-            mecanumDrivetrain.driveByGyro(18, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, -90);
+            mecanumDrivetrain.driveByGyro(18, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             sleep(300);
             cargoGrabber.release();
-            sleep(500);
-            mecanumDrivetrain.driveByGyro(37, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, -90);
+            sleep(300);
+            mecanumDrivetrain.driveByGyro(37, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
             cargoGrabber.resetGrabberAsync();
             sleep(300);
             mecanumDrivetrain.gyroTurn(90, AUTONOMOUS_SPEED, this);
@@ -221,7 +220,7 @@ public class FreightFrenzyAutonomousBlueDoubleBlock extends LinearOpMode {
             mecanumDrivetrain.strafeLeftByTime(this, AUTONOMOUS_SPEED, 1.8);
             sleep(300);
             mecanumDrivetrain.driveByGyro(55, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 90);
-            sleep(300);
+
             //cargoGrabber.resetArmTeleop();
 
 

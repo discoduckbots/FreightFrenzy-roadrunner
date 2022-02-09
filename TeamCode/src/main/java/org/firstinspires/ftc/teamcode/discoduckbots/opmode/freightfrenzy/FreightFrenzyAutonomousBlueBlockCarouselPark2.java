@@ -165,6 +165,8 @@ public class FreightFrenzyAutonomousBlueBlockCarouselPark2 extends LinearOpMode 
             //cargoGrabber.grab();
             //mecanumDrivetrain.driveByGyro(3, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED,0);
             //sleep(300);
+            cargoGrabber.grab();
+            sleep(300);
             mecanumDrivetrain.driveByGyro(1, MecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
             sleep(300);
             mecanumDrivetrain.driveByGyro(3.5, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 0);
@@ -188,8 +190,8 @@ public class FreightFrenzyAutonomousBlueBlockCarouselPark2 extends LinearOpMode 
             Log.d("FTC", "Strafing after lifting");
 
 
-                mecanumDrivetrain.driveByGyro(2.5, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
-                sleep(300);
+            //mecanumDrivetrain.driveByGyro(2.5, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED, 0);
+                //sleep(300);
 
 
             mecanumDrivetrain.driveByGyro(32, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, STRAFE_SPEED, 0);
@@ -205,7 +207,7 @@ public class FreightFrenzyAutonomousBlueBlockCarouselPark2 extends LinearOpMode 
             Log.d("FTC", "Before turning");
             mecanumDrivetrain.gyroTurn(90, 0.45, this );
             sleep(500);
-            cargoGrabber.resetArm();
+            cargoGrabber.resetToLydiasFavoritePosition();
             Log.d("FTC", "Before hitting wall");
             mecanumDrivetrain.strafeLeftByTime(this, AUTONOMOUS_SPEED, 1.8);
             sleep(300);

@@ -13,9 +13,9 @@ public class DuckDetector {
     DistanceSensor distanceSensor2;
     int SENSOR1 = 1;
     int SENSOR2 = 2;
-    static public int LEVEL1 = 1991;
-    static public int LEVEL2 = 2976;
-    static public int LEVEL3 = 4039;
+    static public int LEVEL1 = 1850;
+    static public int LEVEL2 = 2815;
+    static public int LEVEL3 = 3950;
 
     double SENSOR1_MAX = 15;
     double SENSOR2_MAX = 5;

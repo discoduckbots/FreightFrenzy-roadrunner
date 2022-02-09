@@ -156,8 +156,7 @@ public class FreightFrenzyAutonomousBlueBlockPark extends LinearOpMode {
 
         if (opModeIsActive()) {
 
-            //tensorflow
-            sleep(300);
+
             cargoGrabber.grab();
             sleep(300);
             mecanumDrivetrain.driveByGyro(18, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
@@ -171,7 +170,7 @@ public class FreightFrenzyAutonomousBlueBlockPark extends LinearOpMode {
             cargoGrabber.liftByEncoder(level);
             sleep(100);
             Log.d("FTC", "Strafing after lifting");
-            mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 0);
+            mecanumDrivetrain.driveByGyro(22, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 0);
             sleep(1500);
             Log.d("FTC", "Releasing freight");
             cargoGrabber.release();
@@ -179,7 +178,7 @@ public class FreightFrenzyAutonomousBlueBlockPark extends LinearOpMode {
             Log.d("FTC", "Before coming back");
            mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_FORWARD, AUTONOMOUS_SPEED,0);
             sleep(300);
-            cargoGrabber.resetArm();
+            cargoGrabber.resetToLydiasFavoritePosition();
             Log.d("FTC", "Before turning");
             mecanumDrivetrain.gyroTurn(90, 0.45, this );
             sleep(500);

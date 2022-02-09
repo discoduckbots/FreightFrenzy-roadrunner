@@ -27,6 +27,7 @@ public class HardwareStore {
     private TouchSensor touchSensor = null;
     private DistanceSensor distanceSensor = null;
     private DistanceSensor distanceSensor2 = null;
+    private DistanceSensor blockSensor = null;
     private TouchSensor armStoppingSensor = null;
     private WebcamName webcamName = null;
 
@@ -52,8 +53,9 @@ public class HardwareStore {
          cargoServo = hardwareMap.get(Servo.class, "cargoServo");
          distanceSensor = hardwareMap.get(DistanceSensor.class, "distanceSensor");
         distanceSensor2 = hardwareMap.get(DistanceSensor.class, "distanceSensor2");
+        blockSensor = hardwareMap.get(DistanceSensor.class, "blockSensor");
         armStoppingSensor = hardwareMap.get(TouchSensor.class, "armSensor");
-        webcamName = hardwareMap.get(WebcamName.class, "webcam");
+        webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
        ledDriver = hardwareMap.get(RevBlinkinLedDriver.class, "led");
         ledDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.YELLOW);
 
@@ -122,6 +124,7 @@ public class HardwareStore {
     public TouchSensor getArmStoppingSensor() { return armStoppingSensor; }
     public DistanceSensor getDistanceSensor() { return distanceSensor; }
     public DistanceSensor getDistanceSensor2() { return distanceSensor2; }
+    public DistanceSensor getBlockSensor() { return blockSensor; }
 
     public CarouselSpinner getCarouselSpinner() {
         return carouselSpinner;

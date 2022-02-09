@@ -35,6 +35,7 @@ import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.BlockDetector;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.BlockDetectorListener;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
@@ -102,6 +103,8 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+            Log.d("ftc-bs" , "block sensor " +
+                    hardwareStore.getBlockSensor().getDistance(DistanceUnit.CM));
             duckDetector.print();
             //telemetry.addData("Pusher Servo Position: ", shooter.getPusherServo().getPosition());
             //telemetry.update();
@@ -151,8 +154,10 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.b) {
-                cargoGrabber.resetPositionAs0();
+                //cargoGrabber.resetPositionAs0();
+                cargoGrabber.resetToLydiasFavoritePosition();
             }
+
 
             if(gamepad2.x) {
                 cargoGrabber.stop();

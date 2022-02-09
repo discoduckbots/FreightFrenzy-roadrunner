@@ -16,26 +16,28 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 
+import static org.opencv.imgproc.Imgproc.COLOR_BGR2GRAY;
 import static org.opencv.imgproc.Imgproc.COLOR_RGB2GRAY;
 import static org.opencv.imgproc.Imgproc.THRESH_BINARY;
 
 public class BlockDetector {
 
     private static final int MAX_THRESHOLD = 50;
+    private static final String TAG = "ftc-opencv";
     OpenCvCamera webcam;
     BlockDetectorListener listener;
     DistanceSensor distanceSensor;
     double BLOCK_SENSOR = 9;
 
-    public BlockDetector(WebcamName webcamName, HardwareMap hardwareMap, BlockDetectorListener listener,
-                         DistanceSensor distanceSensor) {
+    public BlockDetector(WebcamName webcamName, HardwareMap hardwareMap, BlockDetectorListener listener
+                         ) {
         this.listener = listener;
-        this.distanceSensor = distanceSensor;
+        //this.distanceSensor = distanceSensor;
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
 
 
         webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
-
+        Log.d(TAG, "open webcam " + webcam);
         // OR...  Do Not Activate the Camera Monitor View
         //webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"));
 
@@ -74,13 +76,13 @@ public class BlockDetector {
                  * For a rear facing camera or a webcam, rotation is defined assuming the camera is facing
                  * away from the user.
                  */
-
+                Log.d(TAG, "starting streaming");
                 webcam.startStreaming(160, 120, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
             public void onError(int errorCode) {
-
+            Log.d(TAG, "found an error " + errorCode);
             }
         });
     }
@@ -105,16 +107,20 @@ public class BlockDetector {
             Size size = new Size();
             boolean blockDetectedZone1 = false; // cargo in grabber side
             boolean blockDetectedZone2 = false; // cargo in intake side
-            Imgproc.cvtColor(input, grayimage, COLOR_RGB2GRAY);
+           // Imgproc.cvtColor(input, grayimage, COLOR_RGB2GRAY);
+            Imgproc.cvtColor(input, grayimage, COLOR_BGR2GRAY);
             Log.d("ftc-opencv", "int height = " + input.height()); // print values for debugging
             Log.d("ftc-opencv", "int width = " + input.width()); // print values for debugging
 
-            Rect roi_zone1= new Rect(55, 40, 60, 35);
-            Rect roi_zone2= new Rect(55, 75, 60, 40);
-            Mat im_zone1 = input.submat(roi_zone1);
-            Mat im_zone2 = input.submat(roi_zone2);
+           // Rect roi_zone1= new Rect(55, 40, 60, 35);
+            //Rect roi_zone2= new Rect(55, 75, 60, 40);
+            Rect roi_zone1= new Rect(75, 17, 36, 50);
+            Rect roi_zone2= new Rect(70, 70, 45, 40);
+            Mat im_zone1 = grayimage.submat(roi_zone1);
+            Mat im_zone2 = grayimage.submat(roi_zone2);
             Imgproc.threshold(im_zone1, bw1, 180, 255, THRESH_BINARY);
             Imgproc.threshold(im_zone2, bw2, 180, 255, THRESH_BINARY);
+
             int cargo1 = Core.countNonZero(bw1);
             int cargo2 = Core.countNonZero(bw2);
             Log.d("ftc-opencv", "cargo1 = " + cargo1); // print values for debugging

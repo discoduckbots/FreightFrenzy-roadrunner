@@ -30,22 +30,11 @@
 package org.firstinspires.ftc.teamcode.discoduckbots.opmode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.CargoGrabber;
-import org.firstinspires.ftc.teamcode.discoduckbots.hardware.DuckDetector;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.HardwareStore;
-import org.firstinspires.ftc.teamcode.discoduckbots.hardware.Intake;
 import org.firstinspires.ftc.teamcode.discoduckbots.hardware.MecanumDrivetrain;
-import org.firstinspires.ftc.teamcode.discoduckbots.hardware.Shooter;
-import org.firstinspires.ftc.teamcode.discoduckbots.hardware.WobbleMover;
-
 
 
 /**
@@ -202,7 +191,7 @@ public class TestTeleOp extends LinearOpMode {
                 //hardwareStore.frontRight.setPower(0);
             }
             if (gamepad2.dpad_left) {
-                cargoGrabber.resetArm();
+                cargoGrabber.resetToLydiasFavoritePosition();
                 //mecanumDrivetrain.gyroTurn(-90, AUTONOMOUS_SPEED, this);
             }
             if (gamepad1.dpad_right) {

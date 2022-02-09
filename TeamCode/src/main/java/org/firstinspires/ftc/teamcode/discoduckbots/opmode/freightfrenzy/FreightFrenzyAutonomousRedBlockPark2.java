@@ -191,7 +191,7 @@ public class FreightFrenzyAutonomousRedBlockPark2 extends LinearOpMode {
             sleep(300);
 
             sleep(300);
-            cargoGrabber.resetArm();
+            cargoGrabber.resetToLydiasFavoritePosition();
             //mecanumDrivetrain.driveByGyro(10, mecanumDrivetrain.DIRECTION_STRAFE_RIGHT, AUTONOMOUS_SPEED,0);
             /*mecanumDrivetrain.driveByGyro(9, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, AUTONOMOUS_SPEED, 0);
             mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 0);
