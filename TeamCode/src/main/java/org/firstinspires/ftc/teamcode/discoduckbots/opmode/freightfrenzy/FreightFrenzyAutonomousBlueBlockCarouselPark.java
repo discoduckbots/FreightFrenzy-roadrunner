@@ -56,9 +56,9 @@ import org.firstinspires.ftc.teamcode.discoduckbots.sensors.TensorFlow;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFBlueBlockCarouselSide", group = "drive")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "FFBlueBlockCarouselPark", group = "drive")
 
-public class FreightFrenzyAutonomousBlueBlockSecondCarouselPark extends LinearOpMode {
+public class FreightFrenzyAutonomousBlueBlockCarouselPark extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private MecanumDrivetrain mecanumDrivetrain = null;
     private CargoGrabber cargoGrabber = null;

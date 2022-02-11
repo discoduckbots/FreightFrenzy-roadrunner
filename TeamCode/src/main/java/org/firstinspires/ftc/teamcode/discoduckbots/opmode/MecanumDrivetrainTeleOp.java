@@ -93,14 +93,18 @@ public class MecanumDrivetrainTeleOp extends LinearOpMode {
                 hardwareStore.getDistanceSensor2());
         blockDetector = new BlockDetector(hardwareStore.getWebcamName(), hardwareMap, new BlockDetectorListener() {
             @Override
-            public void onBlockDetected(boolean zone1, boolean zone2) {
-                Log.d("ftc-opencv", "Cargo zone1 " + zone1 + " zone2  " + zone2);
-                if (zone1 && zone2) {
+            public void onBlockDetected(boolean grabber, boolean zone1, boolean zone2) {
+                Log.d("ftc-opencv", "Cargo grabber " + grabber + " zone1 " + zone1 + " zone2  " + zone2);
+                if ((grabber && zone1) ||
+                        (grabber && zone2) ||
+                        (zone1 && zone2)) {
                     ledDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
-                } else if (zone1) {
+                } else if (grabber) {
                     ledDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
-                } else if (zone2){
+                } else if (zone1){
                     ledDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.VIOLET);
+                } else if (zone2) {
+                    ledDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.HOT_PINK);
                 } else {
                     ledDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.YELLOW);
                 }

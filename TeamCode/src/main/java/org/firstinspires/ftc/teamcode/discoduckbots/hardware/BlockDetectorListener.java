@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode.discoduckbots.hardware;
 
 public interface BlockDetectorListener {
-    public void onBlockDetected(boolean inGrabber, boolean moreThanOne);
+    public void onBlockDetected(boolean grabber, boolean ledge, boolean intake);
 }
