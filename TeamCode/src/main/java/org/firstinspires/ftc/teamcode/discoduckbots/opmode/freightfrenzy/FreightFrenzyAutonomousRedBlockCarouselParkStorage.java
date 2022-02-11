@@ -201,7 +201,7 @@ public class FreightFrenzyAutonomousRedBlockCarouselParkStorage extends LinearOp
             sleep(300);
             //Log.d("FTC", "Strafing after lifting");
             Log.d("FTC", "Strafing left 1");
-            mecanumDrivetrain.driveByGyro(23, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 90);
+            mecanumDrivetrain.driveByGyro(20, mecanumDrivetrain.DIRECTION_STRAFE_LEFT, STRAFE_SPEED, 90);
             /*sleep(200);
             Log.d("FTC", "Drive back");
             mecanumDrivetrain.driveByGyro(37, mecanumDrivetrain.DIRECTION_REVERSE, AUTONOMOUS_SPEED, 90);

@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
@@ -29,10 +30,10 @@ public class BlockDetector {
     DistanceSensor distanceSensor;
     double BLOCK_SENSOR = 9;
 
-    public BlockDetector(WebcamName webcamName, HardwareMap hardwareMap, BlockDetectorListener listener
-                         ) {
+    public BlockDetector(WebcamName webcamName, HardwareMap hardwareMap, BlockDetectorListener listener,
+                         DistanceSensor blockSensor) {
         this.listener = listener;
-        //this.distanceSensor = distanceSensor;
+        this.distanceSensor = blockSensor;
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
 
 
@@ -82,7 +83,7 @@ public class BlockDetector {
 
             @Override
             public void onError(int errorCode) {
-            Log.d(TAG, "found an error " + errorCode);
+                Log.d(TAG, "found an error " + errorCode);
             }
         });
     }
@@ -103,37 +104,74 @@ public class BlockDetector {
         public Mat processFrame(Mat input) {
             Mat bw1 = new Mat();
             Mat bw2 = new Mat();
+            Mat bw3 = new Mat();
             Mat grayimage = new Mat();
             Size size = new Size();
             boolean blockDetectedZone1 = false; // cargo in grabber side
             boolean blockDetectedZone2 = false; // cargo in intake side
-           // Imgproc.cvtColor(input, grayimage, COLOR_RGB2GRAY);
+            // Imgproc.cvtColor(input, grayimage, COLOR_RGB2GRAY);
             Imgproc.cvtColor(input, grayimage, COLOR_BGR2GRAY);
             Log.d("ftc-opencv", "int height = " + input.height()); // print values for debugging
             Log.d("ftc-opencv", "int width = " + input.width()); // print values for debugging
 
-           // Rect roi_zone1= new Rect(55, 40, 60, 35);
+            // Rect roi_zone1= new Rect(55, 40, 60, 35);
             //Rect roi_zone2= new Rect(55, 75, 60, 40);
-            Rect roi_zone1= new Rect(75, 17, 36, 50);
-            Rect roi_zone2= new Rect(70, 70, 45, 40);
+
+            Rect roi_zone1_with_ds = new Rect(75, 0, 36, 14);
+            Rect roi_zone1_without_ds = new Rect(75, 9, 36, 10);
+            Rect roi_zone2_with_ds = new Rect(70, 15, 45, 105);
+            Rect roi_zone2_without_ds = new Rect(70, 20, 45, 100);
+            Rect roi_zone3 = new Rect(70, 60, 45, 60);
+            Rect roi_zone1 = roi_zone1_without_ds;
+            Rect roi_zone2 = roi_zone2_without_ds;
+
+            boolean hasDistanceSensorFoundBlock = hasDistanceSensorFoundBlock();
+            if (hasDistanceSensorFoundBlock) {
+                roi_zone1 = roi_zone1_with_ds;
+                roi_zone2 = roi_zone2_with_ds;
+            }
+
+            // zone 1 is just the grabber part
+            // zone2 is the rest
+            // zone3 is just the first part of the ramp near the intake
             Mat im_zone1 = grayimage.submat(roi_zone1);
             Mat im_zone2 = grayimage.submat(roi_zone2);
+            Mat im_zone3 = grayimage.submat(roi_zone3);
             Imgproc.threshold(im_zone1, bw1, 180, 255, THRESH_BINARY);
             Imgproc.threshold(im_zone2, bw2, 180, 255, THRESH_BINARY);
+            Imgproc.threshold(im_zone3, bw3, 180, 255, THRESH_BINARY);
 
             int cargo1 = Core.countNonZero(bw1);
             int cargo2 = Core.countNonZero(bw2);
+            int cargozone3 = Core.countNonZero(bw3);
             Log.d("ftc-opencv", "cargo1 = " + cargo1); // print values for debugging
             Log.d("ftc-opencv", "cargo2 = " + cargo2); // print values for debugging
+            Log.d("ftc-opencv", "cargo3 = " + cargozone3); // print values for debugging
 
-            if (cargo1 > MAX_THRESHOLD) {
-                blockDetectedZone1 = true;//grabber
+            if (cargozone3 > MAX_THRESHOLD) {
+                blockDetectedZone2 = true;
             }
-            if (cargo2 > MAX_THRESHOLD) {
-                blockDetectedZone2 = true;//intake
+            if (hasDistanceSensorFoundBlock) {
+                blockDetectedZone1 = true;
+                // check if ball
+                if (cargo1 > 250) {
+                    // if ball in cargo 1, the cargo2 has to be really big
+                    if (cargo2 > 500) blockDetectedZone2 = true;
+                } else {
+                    if (cargo2 > 200) blockDetectedZone2 = true;
+                }
+            } else {
+                if (cargo1 > MAX_THRESHOLD) {
+                    blockDetectedZone1 = true;
+                    if (cargo2 > 200) blockDetectedZone2 = true;
+                } else {
+                    // no cargo in grabber
+                    if (cargo2 > 50) blockDetectedZone2 = true;
+                }
             }
 
-           // checkBlockDetected(blockDetected);
+
+            listener.onBlockDetected(blockDetectedZone1, blockDetectedZone2);
 
 
             /**
@@ -169,12 +207,17 @@ public class BlockDetector {
         }
     }
 
-  /*  private boolean checkBlockDetected(boolean cameraDetectedBlock) {
-        boolean distanceSensorDetectedBlock = distanceSensor.getDistance(double distance) {
-            return distance < BLOCK_SENSOR;
-       } */
-
+    private boolean hasDistanceSensorFoundBlock() {
+        double distance = distanceSensor.getDistance(DistanceUnit.CM);
+        Log.d(TAG, "Cargo at distance " + distance);
+        return distance <= 10;
     }
+    private boolean checkBlockDetectedInGrabber(boolean cargo1Detected, boolean cargo2Detected) {
+        double distance = distanceSensor.getDistance(DistanceUnit.CM);
+        Log.d(TAG, "Cargo distance " + distance + " cargo1 " + cargo1Detected + " cargo2 " +cargo2Detected);
+        return distance <= 10 || cargo1Detected;
+    }
+}
 
 
 

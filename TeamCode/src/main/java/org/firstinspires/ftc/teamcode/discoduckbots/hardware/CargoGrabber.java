@@ -29,7 +29,7 @@ public class CargoGrabber {
     }
 
     public void print() {
-        Log.d("ftc2", "cargoMotor " + cargoMotor.getCurrentPosition());
+        Log.d("ftc3", "cargoMotor " + cargoMotor.getCurrentPosition());
     }
 
     public void dropByEncoder(int revolutions){
@@ -46,13 +46,13 @@ public class CargoGrabber {
     }
 
     public void resetToLydiasFavoritePosition() {
-        resetToLydiasFavoritePosition(212);
+        resetToLydiasFavoritePosition(540);
     }
     public void resetArmTeleop() {
         resetToLydiasFavoritePosition(0);
     }
 
-    public void resetGrabberAsync() { resetArmAsync(212);}
+    public void resetGrabberAsync() { resetArmAsync(540);}
     public void resetGrabberAsyncTeleop() {
         resetArmAsync(0);
     }
